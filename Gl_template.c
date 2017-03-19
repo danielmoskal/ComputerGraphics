@@ -356,6 +356,83 @@ void wiatrak(float x, float y, float z)
 	glEnd();
 }
 
+//w sumie to nwm co to bedzie jeszcze
+void kamera(float x, float y, float z)
+{
+	//gorna sciana
+	glColor3f(0, 0, 1);
+	glBegin(GL_QUADS);
+	glVertex3f(x + 30.0f, y + -5.0f, z + 30.0f);
+	glVertex3f(x + 50.0f, y + -5.0f, z + 30.0f);
+	glVertex3f(x + 50.0f, y + -5.0f, z + 50.0f);
+	glVertex3f(x + 30.0f, y + -5.0f, z + 50.0f);
+	glEnd();
+
+	//dolna sciana
+	glBegin(GL_QUADS);
+	glVertex3f(x + 30.0f, y + -15.0f, z + 30.0f);
+	glVertex3f(x + 50.0f, y + -15.0f, z + 30.0f);
+	glVertex3f(x + 50.0f, y + -15.0f, z + 50.0f);
+	glVertex3f(x + 30.0f, y + -15.0f, z + 50.0f);
+	glEnd();
+
+	/*---------------linie---------------*/
+	glColor3f(0.8f, 0.0f, 0.8f);
+	glBegin(GL_LINES);
+	glVertex3f(x + 30.0f, y + -5.0f, z + 30.0f);
+	glVertex3f(x + 30.0f, y + -15.0f, z + 30.0f);
+	glEnd();
+
+	glBegin(GL_LINES);
+	glVertex3f(x + 30.0f, y + -5.0f, z + 50.0f);
+	glVertex3f(x + 30.0f, y + -15.0f, z + 50.0f);
+	glEnd();
+
+	glBegin(GL_LINES);
+	glVertex3f(x + 50.0f, y + -5.0f, z + 30.0f);
+	glVertex3f(x + 50.0f, y + -15.0f, z + 30.0f);
+	glEnd();
+
+	glBegin(GL_LINES);
+	glVertex3f(x + 50.0f, y + -5.0f, z + 50.0f);
+	glVertex3f(x + 50.0f, y + -15.0f, z + 50.0f);
+	glEnd();
+	/*---------------koniec---------------*/
+
+	/*---------------sciany boczne---------------*/
+	glColor3f(0.1f, 0.4f, 0.9f);
+	glBegin(GL_QUADS);
+	glVertex3f(x + 30.0f, y + -5.0f, z + 30.0f);
+	glVertex3f(x + 30.0f, y + -15.0f, z + 30.0f);
+	glVertex3f(x + 50.0f, y + -15.0f, z + 30.0f);
+	glVertex3f(x + 50.0f, y + -5.0f, z + 30.0f);
+	glEnd();
+
+	glBegin(GL_QUADS);
+	glVertex3f(x + 30.0f, y + -5.0f, z + 30.0f);
+	glVertex3f(x + 30.0f, y + -5.0f, z + 50.0f);
+	glVertex3f(x + 30.0f, y + -15.0f, z + 50.0f);
+	glVertex3f(x + 30.0f, y + -15.0f, z + 30.0f);
+	glEnd();
+
+	glBegin(GL_QUADS);
+	glVertex3f(x + 30.0f, y + -5.0f, z + 50.0f);
+	glVertex3f(x + 30.0f, y + -15.0f, z + 50.0f);
+	glVertex3f(x + 50.0f, y + -15.0f, z + 50.0f);
+	glVertex3f(x + 50.0f, y + -5.0f, z + 50.0f);
+	glEnd();
+
+	glColor3f(0.1f, 1.0f, 0.9f);
+	glBegin(GL_QUADS);
+	glVertex3f(x + 50.0f, y + -5.0f, z + 30.0f);
+	glVertex3f(x + 50.0f, y + -15.0f, z + 30.0f);
+	glVertex3f(x + 50.0f, y + -15.0f, z + 50.0f);
+	glVertex3f(x + 50.0f, y + -5.0f, z + 50.0f);
+	glEnd();
+
+
+}
+
 
 //cos bede dalej tutaj robil :D
 //void podstawa()
@@ -425,7 +502,7 @@ void RenderScene(void)
 	glPolygonMode(GL_BACK, GL_LINE);
 
 	uklad();
-
+	kamera(0, 0, 0);
 	wiatrak(0,0,0);
 	wiatrak(80, 0, 80);
 	wiatrak(0, 0, 80);
