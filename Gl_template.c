@@ -496,10 +496,10 @@ void kamera(float x, float y, float z)
 	for (float k = 0; k < 2 * GL_PI + GL_PI / 12; k += GL_PI / 12)
 	{
 		glVertex3f(x + 40.0f + cos(k) * 1.5, y + -15.0f, z + 40.0f + sin(k) * 1.5);
-		glVertex3f(x + 40.0f + cos(k) * 1.5, y + -22.0f, z + 40.0f + sin(k) * 1.5);
+		glVertex3f(x + 40.0f + cos(k) * 1.5, y + -25.0f, z + 40.0f + sin(k) * 1.5);
 	}
 	glEnd();
-
+/*
 	//pierwsza stopka
 	glColor3f(0.4f, 0.0f, 0.0f);
 	glBegin(GL_TRIANGLE_STRIP);
@@ -553,7 +553,7 @@ void kamera(float x, float y, float z)
 		glVertex3f(x + 40.0f + cos(k) * 10, y + 10.0f, z + 40.0f + sin(k) * 10);
 		glVertex3f(x + 40.0f + sin(k) * 10, y + 10.0f + cos(k) * 10, z + 40.0f);
 	}
-	glEnd();*/
+	glEnd();*/	
 }
 
 //x,y,z - wspolrzedne r,h - rozmiary
@@ -564,7 +564,7 @@ void pierscien(float x, float y, float z, double r, double h)
 		float a, b;
 		glColor3f(0.0f, 0.0f, 0.5f);
 		glBegin(GL_TRIANGLE_STRIP);
-		for (float k = 0; k <= 2 * GL_PI; k += GL_PI / 8.0)
+		for (float k = 0; k <= 2 * GL_PI; k += GL_PI / 16.0)
 		{
 			a = r* sin(k);
 			b = r* cos(k);
@@ -576,7 +576,7 @@ void pierscien(float x, float y, float z, double r, double h)
 		glEnd();
 
 		glBegin(GL_TRIANGLE_STRIP);
-		for (float k = 0; k <= 2 * GL_PI; k += GL_PI / 8.0)
+		for (float k = 0; k <= 2 * GL_PI; k += GL_PI / 16.0)
 		{
 			a = r* sin(k);
 			b = r* cos(k);
@@ -589,7 +589,7 @@ void pierscien(float x, float y, float z, double r, double h)
 
 		glColor3f(0.0f, 0.0f, 0.0f);
 		glBegin(GL_TRIANGLE_STRIP);
-		for (float k = 0; k <= 2 * GL_PI; k += GL_PI / 8.0)
+		for (float k = 0; k <= 2 * GL_PI; k += GL_PI / 16.0)
 		{
 			a = r* sin(k);
 			b = r* cos(k);
@@ -600,7 +600,7 @@ void pierscien(float x, float y, float z, double r, double h)
 
 		glColor3f(0.0f, 0.0f, 0.0f);
 		glBegin(GL_TRIANGLE_STRIP);
-		for (float k = 0; k <= 2 * GL_PI; k += GL_PI / 8.0)
+		for (float k = 0; k <= 2 * GL_PI; k += GL_PI / 16.0)
 		{
 			a = r* sin(k);
 			b = r* cos(k);
@@ -608,6 +608,47 @@ void pierscien(float x, float y, float z, double r, double h)
 			b *= 1.2;
 			glVertex3d(x + a,y + 0, z + b);
 			glVertex3d(x + a,y + h, z + b);
+		}
+		glEnd();
+	}
+}
+
+void krzyz(float x, float y, float z, float r)
+{
+	float a, b;
+	glPolygonMode(GL_FRONT_AND_BACK, GL_FILL);
+	{
+		//walec wzdluz osi x
+		glColor3f(0.0f, 0.5f, 0.5f);
+		glBegin(GL_TRIANGLE_STRIP);
+		for (float k = 0; k < 2 * GL_PI; k += GL_PI / 16.0)
+		{
+			a = r *sin(k);
+			b = r *cos(k);
+			glVertex3f(x - 20, y + b, z + a);
+			glVertex3f(x + 20, y + b, z + a);
+		}
+		glEnd();
+
+		//kolo na jednym zakonczeniu walca
+		glColor3f(0.0f, 0.5f, 0.5f);
+		glBegin(GL_TRIANGLE_FAN);
+		for (float k = 0; k < 2 * GL_PI; k += GL_PI / 16.0)
+		{
+			a = r *sin(k);
+			b = r *cos(k);
+			glVertex3f(x - 20, y + b, z + a);
+		}
+		glEnd();
+
+		//kolo na drugim zakonczeniu walca
+		glColor3f(0.0f, 0.5f, 0.5f);
+		glBegin(GL_TRIANGLE_FAN);
+		for (float k = 0; k < 2 * GL_PI; k += GL_PI / 16.0)
+		{
+			a = r *sin(k);
+			b = r *cos(k);
+			glVertex3f(x + 20, y + b, z + a);
 		}
 		glEnd();
 	}
@@ -688,7 +729,9 @@ void RenderScene(void)
 	wiatrak(80, 0, 80);
 	wiatrak(0, 0, 80);
 	wiatrak(80, 0, 0);
-	pierscien(40, 0, 40, 15, 5); //pierwsze 3 to wspolrzedne, 2 od prawej to rozmiary
+	pierscien(40, 0, 40, 15, 2.5); //pierwsze 3 to wspolrzedne, 2 od prawej to rozmiary
+	pierscien(40, -26.3, 40, 15, 2.6);
+	krzyz(40, -25, 40, 1.25);
 	//wiatrak(20, 1, 1, 0, 10, 0);
 	//wiatrak(1, 1, 20, 10, 10, -10);
 
