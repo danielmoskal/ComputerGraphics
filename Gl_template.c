@@ -487,6 +487,62 @@ void kamera(float x, float y, float z)
 	}
 	glEnd();
 
+	/*---------------stopki na bazie walca---------------*/
+
+	//pionowy pret pod obiektem								// <--- tu pozniej detali wiecej dorobie dorobie ----------------------------------
+	glColor3f(0.0f, 0.0f, 0.0f);
+	glBegin(GL_TRIANGLE_STRIP);
+	glVertex3f(x + 40.0f, y + -15.0f, z + 40.0f);
+	for (float k = 0; k < 2 * GL_PI + GL_PI / 12; k += GL_PI / 12)
+	{
+		glVertex3f(x + 40.0f + cos(k) * 1.5, y + -15.0f, z + 40.0f + sin(k) * 1.5);
+		glVertex3f(x + 40.0f + cos(k) * 1.5, y + -22.0f, z + 40.0f + sin(k) * 1.5);
+	}
+	glEnd();
+
+	//pierwsza stopka
+	glColor3f(0.4f, 0.0f, 0.0f);
+	glBegin(GL_TRIANGLE_STRIP);
+	glVertex3f(x + 40.0f, y + -22.0f, z + 40.0f);
+	for (float k = 0; k < 2 * GL_PI + GL_PI / 12; k += GL_PI / 12)
+	{
+		glVertex3f(x + 40.0f + cos(k) * 1.5, y + -22.0f, z + 40.0f + sin(k) * 1.5);
+		glVertex3f(x + 40.0f + cos(k) * 1.5, y + -26.0f, z + 50.0f + sin(k) * 1.5);
+	}
+	glEnd();
+
+	//druga stopka
+	glColor3f(0.4f, 0.0f, 0.0f);
+	glBegin(GL_TRIANGLE_STRIP);
+	glVertex3f(x + 40.0f, y + -22.0f, z + 40.0f);
+	for (float k = 0; k < 2 * GL_PI + GL_PI / 12; k += GL_PI / 12)
+	{
+		glVertex3f(x + 40.0f + cos(k) * 1.5, y + -22.0f, z + 40.0f + sin(k) * 1.5);
+		glVertex3f(x + 40.0f + cos(k) * 1.5, y + -26.0f, z + 30.0f + sin(k) * 1.5);
+	}
+	glEnd();
+
+	//trzecia stopka
+	glColor3f(0.4f, 0.0f, 0.0f);
+	glBegin(GL_TRIANGLE_STRIP);
+	glVertex3f(x + 40.0f, y + -22.0f, z + 40.0f);
+	for (float k = 0; k < 2 * GL_PI + GL_PI / 12; k += GL_PI / 12)
+	{
+		glVertex3f(x + 40.0f + cos(k) * 1.5, y + -22.0f, z + 40.0f + sin(k) * 1.5);
+		glVertex3f(x + 30.0f + cos(k) * 1.5, y + -26.0f, z + 40.0f + sin(k) * 1.5);
+	}
+	glEnd();
+
+	//czwarta stopka
+	glColor3f(0.4f, 0.0f, 0.0f);
+	glBegin(GL_TRIANGLE_STRIP);
+	glVertex3f(x + 40.0f, y + -22.0f, z + 40.0f);
+	for (float k = 0; k < 2 * GL_PI + GL_PI / 12; k += GL_PI / 12)
+	{
+		glVertex3f(x + 40.0f + cos(k) * 1.5, y + -22.0f, z + 40.0f + sin(k) * 1.5);
+		glVertex3f(x + 50.0f + cos(k) * 1.5, y + -26.0f, z + 40.0f + sin(k) * 1.5);
+	}
+	glEnd();
 }
 
 
@@ -558,7 +614,7 @@ void RenderScene(void)
 	glPolygonMode(GL_BACK, GL_LINE);
 
 	uklad();
-	kamera(0, 0, 0);
+	kamera(0, 0, 0);	// wspol zerowe ustawiaja obiekt dokladnie pomiedzy czterema wiatrakami
 	wiatrak(0,0,0);
 	wiatrak(80, 0, 80);
 	wiatrak(0, 0, 80);
