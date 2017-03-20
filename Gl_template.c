@@ -357,6 +357,7 @@ void wiatrak(float x, float y, float z)
 }
 
 //w sumie to nwm co to bedzie jeszcze
+// parametry domyslnie ustawiac na zera
 void kamera(float x, float y, float z)
 {
 	//gorna sciana
@@ -376,7 +377,7 @@ void kamera(float x, float y, float z)
 	glVertex3f(x + 30.0f, y + -15.0f, z + 50.0f);
 	glEnd();
 
-	/*---------------linie---------------*/
+	/*---------------linie pionowe---------------*/
 	glColor3f(0.8f, 0.0f, 0.8f);
 	glBegin(GL_LINES);
 	glVertex3f(x + 30.0f, y + -5.0f, z + 30.0f);
@@ -405,8 +406,7 @@ void kamera(float x, float y, float z)
 	glVertex3f(x + 30.0f, y + -5.0f, z + 30.0f);
 	glVertex3f(x + 50.0f, y + -5.0f, z + 30.0f);
 	glVertex3f(x + 30.0f, y + -15.0f, z + 30.0f);
-	glVertex3f(x + 50.0f, y + -15.0f, z + 30.0f);
-	
+	glVertex3f(x + 50.0f, y + -15.0f, z + 30.0f);	
 	glEnd();
 
 	glBegin(GL_TRIANGLE_STRIP);
@@ -423,27 +423,70 @@ void kamera(float x, float y, float z)
 	glVertex3f(x + 50.0f, y + -15.0f, z + 50.0f);
 	glEnd();
 
-	/*glColor3f(1.0f, 0.7f, 0.0f);
 	glBegin(GL_TRIANGLE_STRIP);
 	glVertex3f(x + 50.0f, y + -5.0f, z + 30.0f);
 	glVertex3f(x + 50.0f, y + -5.0f, z + 50.0f);
 	glVertex3f(x + 50.0f, y + -15.0f, z + 30.0f);
 	glVertex3f(x + 50.0f, y + -15.0f, z + 50.0f);
-	glEnd();*/
+	glEnd();
 
-	//pierwszy walec do kamerki
-	double r = 3;
-
-
-	glColor3f(1.0f, 0.7f, 0.4f);
+	/*---------------pierwszy walec do kamerki---------------*/
+	glColor3f(1.0f, 0.2f, 0.3f);
 	glBegin(GL_TRIANGLE_STRIP);
-	//glVertex3f(x + 40.0f, y + -7.5f, z + 40.0f);
-	for (float i = 0; i < 2 * GL_PI + GL_PI / 12; i += GL_PI / 12)
+	for (float k = 0; k < 2 * GL_PI + GL_PI / 12; k += GL_PI / 12)
 	{
-		glVertex3f(x + 40.0f + cos(i) * 2, y + -7.5f + sin(i) * 2, z + 40.0f);
-		glVertex3f(x + 40.0f + cos(i) * 2, y + -7.5f + sin(i) * 2, z + 60.0f);
+		glVertex3f(x + 40.0f + cos(k) * 3, y + -10.5f + sin(k) * 3, z + 45.0f);
+		glVertex3f(x + 40.0f + cos(k) * 3, y + -10.5f + sin(k) * 3, z + 55.0f);
 	}
 	glEnd();
+
+	//kolo w pierwszym walcu
+	glBegin(GL_TRIANGLE_FAN);
+	glVertex3f(x + 40.0f, y + -10.5f, z + 55.0f);
+	for (float k = 0; k < 2 * GL_PI + GL_PI / 12; k += GL_PI / 12)
+	{
+		glVertex3f(x + 40.0f + cos(k) * 3, y + -10.5f + sin(k) * 3, z + 55.0f);
+	}
+	glEnd();
+
+	/*---------------drugi walec do kamerki---------------*/
+	glColor3f(0.6f, 0.0f, 0.4f);
+	glBegin(GL_TRIANGLE_STRIP);
+	for (float k = 0; k < 2 * GL_PI + GL_PI / 12; k += GL_PI / 12)
+	{
+		glVertex3f(x + 40.0f + cos(k) * 2.15, y + -10.5f + sin(k) * 2.15, z + 55.0f);
+		glVertex3f(x + 40.0f + cos(k) * 2.15, y + -10.5f + sin(k) * 2.15, z + 59.0f);
+	}
+	glEnd();
+
+	//kolo w drugim walcu
+	glBegin(GL_TRIANGLE_FAN);
+	glVertex3f(x + 40.0f, y + -10.5f, z + 59.0f);
+	for (float k = 0; k < 2 * GL_PI + GL_PI / 12; k += GL_PI / 12)
+	{
+		glVertex3f(x + 40.0f + cos(k) * 2.15, y + -10.5f + sin(k) * 2.15, z + 59.0f);
+	}
+	glEnd();
+
+	/*---------------trzeci walec do kamerki---------------*/
+	glColor3f(0.9f, 0.0f, 0.2f);
+	glBegin(GL_TRIANGLE_STRIP);
+	for (float k = 0; k < 2 * GL_PI + GL_PI / 12; k += GL_PI / 12)
+	{
+		glVertex3f(x + 40.0f + cos(k) * 1.5, y + -10.5f + sin(k) * 1.5, z + 59.0f);
+		glVertex3f(x + 40.0f + cos(k) * 1.5, y + -10.5f + sin(k) * 1.5, z + 62.0f);
+	}
+	glEnd();
+
+	//kolo w trzecim walcu
+	glBegin(GL_TRIANGLE_FAN);
+	glVertex3f(x + 40.0f, y + -10.5f, z + 62.0f);
+	for (float k = 0; k < 2 * GL_PI + GL_PI / 12; k += GL_PI / 12)
+	{
+		glVertex3f(x + 40.0f + cos(k) * 1.5, y + -10.5f + sin(k) * 1.5, z + 62.0f);
+	}
+	glEnd();
+
 }
 
 
