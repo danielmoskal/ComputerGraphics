@@ -651,6 +651,40 @@ void krzyz(float x, float y, float z, float r)
 			glVertex3f(x + 20, y + b, z + a);
 		}
 		glEnd();
+
+		//walec wzdluz osi z
+		glColor3f(0.0f, 0.5f, 0.5f);
+		glBegin(GL_TRIANGLE_STRIP);
+		for (float k = 0; k < 2 * GL_PI; k += GL_PI / 16.0)
+		{
+			a = r *sin(k);
+			b = r *cos(k);
+			glVertex3f(x + a, y + b, z -20);
+			glVertex3f(x + a, y + b, z + 20);
+		}
+		glEnd();
+
+		//kolo na jednym zakonczeniu walca
+		glColor3f(0.0f, 0.5f, 0.5f);
+		glBegin(GL_TRIANGLE_FAN);
+		for (float k = 0; k < 2 * GL_PI; k += GL_PI / 16.0)
+		{
+			a = r *sin(k);
+			b = r *cos(k);
+			glVertex3f(x + a, y + b, z - 20);
+		}
+		glEnd();
+
+		//kolo na drugim zakonczeniu walca
+		glColor3f(0.0f, 0.5f, 0.5f);
+		glBegin(GL_TRIANGLE_FAN);
+		for (float k = 0; k < 2 * GL_PI; k += GL_PI / 16.0)
+		{
+			a = r *sin(k);
+			b = r *cos(k);
+			glVertex3f(x + a, y + b, z + 20);
+		}
+		glEnd();
 	}
 }
 
