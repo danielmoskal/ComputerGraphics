@@ -278,82 +278,106 @@ unsigned char *LoadBitmapFile(char *filename, BITMAPINFOHEADER *bitmapInfoHeader
 	return bitmapImage;
 }
 
-//void walec(void)
-//{
-//
-//		glColor3f(1.0, 0.0, 0.0);
-//		glBegin(GL_TRIANGLE_STRIP);
-//		for (float k = 0; k < 2 * GL_PI+GL_PI/12; k += GL_PI / 12)
-//		{
-//			glVertex3d(sin(k) * 20, 50, cos(k) * 20);
-//			glVertex3d(sin(k) * 20, 0, cos(k) * 20);
-//		}
-//		glEnd();
-//
-//		glColor3f(0.0, 0.0, 0.0);
-//		glBegin(GL_TRIANGLE_FAN);
-//		glVertex3f(0.0, 0.0, 0.0);
-//		for (float k = 0; k < 2 * GL_PI + GL_PI / 12; k += GL_PI / 12)
-//		{
-//			glVertex3f(cos(k) * 20, 0, sin(k) * 20);
-//		}
-//		glEnd();
-//
-//		glColor3f(0.0, 1.0, 0.0);
-//		glBegin(GL_TRIANGLE_FAN);
-//		glVertex3f(0.0, 50, 0.0);
-//		for (float k = 0; k < 2 * GL_PI + GL_PI / 12; k += GL_PI / 12)
-//		{
-//			glVertex3f(cos(k) * 20, 50, sin(k) * 20);
-//		}
-//		glEnd();
-//}
+
+
+/// -------> Figury PODSTAWOWE które potem mozna wykorzstywac do budowania innych figur poprzez zmiane parametrow tych funkcji, zmieniamy rozmiar, po³o¿enie itp --------<//
+void walec(GLfloat x, GLfloat y, GLfloat z, GLfloat srednicaXZ, GLfloat wysokoscY, int red, int green, int blue)
+{
+
+	glColor3ub(red, green, blue);
+	glBegin(GL_TRIANGLE_STRIP);
+	for (float k = 0; k < 2 * GL_PI + GL_PI / 12; k += GL_PI / 12)
+	{
+		glVertex3d(x + sin(k) * srednicaXZ, y + wysokoscY, z + cos(k) * srednicaXZ);
+		glVertex3d(x + sin(k) * srednicaXZ, y, z + cos(k) * srednicaXZ);
+	}
+	glEnd();
+}
+
+void kolo(GLfloat x, GLfloat y, GLfloat z, GLfloat srednicaXZ, int red, int green, int blue)
+{
+	glColor3ub(red, green, blue);
+	glBegin(GL_TRIANGLE_FAN);
+	glVertex3f(x, y, z);
+	for (float k = 0; k < 2 * GL_PI + GL_PI / 12; k += GL_PI / 24)
+	{
+		glVertex3f(x + cos(k) * srednicaXZ, y, z + sin(k) * srednicaXZ);
+	}
+	glEnd();
+}
+
+
+void ostroslup(GLfloat srodekPodstawyX, GLfloat srodekPodstawyY, GLfloat srodekPodstawyZ, GLfloat srednicaXZ, GLfloat wysokoscY, int red, int green, int blue)
+{
+	glColor3ub(red, green, blue);
+	glBegin(GL_TRIANGLE_FAN);
+	glVertex3f(srodekPodstawyX, srodekPodstawyY + wysokoscY, srodekPodstawyZ);
+	for (float k = 0; k < 2 * GL_PI + GL_PI / 12; k += GL_PI / 24)
+	{
+		glVertex3f(srodekPodstawyX + cos(k) * srednicaXZ, srodekPodstawyY, srodekPodstawyZ + sin(k) * srednicaXZ);
+	}
+	glEnd();
+}
+
+
+/// --------> koniec figur podstawowych -------- ///
+
+
+
+
 
 
 //rysuje pojedynczy wirnik z silnikiem
 //parametry okreslaj¹, w którym miejscu narysowaæ ten wirnik na ka¿dej z osi
 void wiatrak(float x, float y, float z)
 {
-	glColor3f(1, 0, 0);
+
+	//zrobimy 2 "lopatki" smigla tak jak na tym rysunku
+	glColor3ub(80, 70, 70);
 	glBegin(GL_TRIANGLE_FAN);
 	glVertex3f(x+0.0, y+5.0, z+0.0);
-	glVertex3f(x+cos(GL_PI / 18 * 14) * 10, y+5, z+sin(GL_PI / 18 * 14) * 10); //140 stopni
-	glVertex3f(x+cos(GL_PI / 18 * 17) * 10, y+5, z + sin(GL_PI / 18 * 17) * 10); //170
+	glVertex3f(x+cos(GL_PI / 18 * 9) * 10, y+5, z+sin(GL_PI / 18 * 9) * 10); //90 stopni
+	glVertex3f(x+cos(GL_PI / 18 * 11) * 10, y+5, z + sin(GL_PI / 18 * 11) * 10); //110
 	glEnd();
 
-	glColor3f(1, 0, 0);
 	glBegin(GL_TRIANGLE_FAN);
 	glVertex3f(x+0.0, y+5.0, z+0.0);
-	glVertex3f(x + cos(GL_PI / 18 * 2) * 10, y + 5, z + sin(GL_PI / 18 *2) * 10); //20
-	glVertex3f(x + cos(GL_PI / 18 * 5) * 10, y + 5, z + sin(GL_PI / 18 * 5) * 10); //50
-	glEnd();
-
-	glColor3f(1, 0, 0);
-	glBegin(GL_TRIANGLE_FAN);
-	glVertex3f(x+0.0,y+ 5.0, z+0.0);
-	glVertex3f(x + cos(GL_PI / 18 * 26) * 10, y + 5, z + sin(GL_PI / 18 * 26) * 10); //260
+	glVertex3f(x + cos(GL_PI / 18 * 27) * 10, y + 5, z + sin(GL_PI / 18 *27) * 10); //270
 	glVertex3f(x + cos(GL_PI / 18 * 29) * 10, y + 5, z + sin(GL_PI / 18 * 29) * 10); //290
 	glEnd();
 
-	//ko³o na œrodku wirnika
-	glColor3f(0, 1, 0);
-	glBegin(GL_TRIANGLE_FAN);
-	glVertex3f(x + 0.0, y+5.0, z + 0.0);
-	for (float k = 0; k < GL_PI * 2 + GL_PI / 12; k += GL_PI / 12)
-	{
-		glVertex3f(x + cos(k) * 2, y + 5, z + sin(k) * 2);
-	}
-	glEnd();
+
+	//walec(x, y + 5, z, 1, 1, 0, 0, 0);
+	//ostroslup(x, y + 6, z, 0.7, 1.2, 20, 50, 90);
+	//glColor3ub(0, 0, 0);
+	//glBegin(GL_TRIANGLE_STRIP);
+	//for (float k = 0; k < GL_PI * 2 + GL_PI / 12; k += GL_PI / 12)
+	//{
+	//	glVertex3f(x + cos(k), y + 6, z + sin(k));
+	//	glVertex3f(x + cos(k), y+5, z + sin(k));
+	//}
+	//glEnd();
+
+	//glColor3ub(0, 1, 0);
+	//glBegin(GL_TRIANGLE_FAN);
+	//glVertex3f(x + 0.0, y+5.0, z + 0.0);
+	//for (float k = 0; k < GL_PI * 2 + GL_PI / 12; k += GL_PI / 12)
+	//{
+	//	glVertex3f(x + cos(k) * 2, y + 5, z + sin(k) * 2);
+	//}
+	//glEnd();
+
+
 
 	//walec jako silnik :D
-	glColor3f(0, 1, 0);
-	glBegin(GL_TRIANGLE_STRIP);
-	for (float k = 0; k < GL_PI * 2 + GL_PI / 12; k += GL_PI / 12)
-	{
-		glVertex3f(x + cos(k) * 2, y + 5, z + sin(k) * 2);
-		glVertex3f(x + cos(k) * 2, y - 5, z + sin(k) * 2);
-	}
-	glEnd();
+	//glColor3f(0, 1, 0);
+	//glBegin(GL_TRIANGLE_STRIP);
+	//for (float k = 0; k < GL_PI * 2 + GL_PI / 12; k += GL_PI / 12)
+	//{
+	//	glVertex3f(x + cos(k) * 2, y + 5, z + sin(k) * 2);
+	//	glVertex3f(x + cos(k) * 2, y - 5, z + sin(k) * 2);
+	//}
+	//glEnd();
 }
 
 //w sumie to nwm co to bedzie jeszcze
@@ -499,7 +523,7 @@ void kamera(float x, float y, float z)
 		glVertex3f(x + 40.0f + cos(k) * 1.5, y + -25.0f, z + 40.0f + sin(k) * 1.5);
 	}
 	glEnd();
-/*
+
 	//pierwsza stopka
 	glColor3f(0.4f, 0.0f, 0.0f);
 	glBegin(GL_TRIANGLE_STRIP);
@@ -546,14 +570,14 @@ void kamera(float x, float y, float z)
 
 
 	/*---------------nwm co to ale wyglada zajebiscie---------------*/
-	/*glColor3f(0.2f, 0.2f, 0.2f);
-	glBegin(GL_LINE_LOOP);
-	for (float k = 0; k < 2 * GL_PI + GL_PI / 12; k += GL_PI / 12)
-	{
-		glVertex3f(x + 40.0f + cos(k) * 10, y + 10.0f, z + 40.0f + sin(k) * 10);
-		glVertex3f(x + 40.0f + sin(k) * 10, y + 10.0f + cos(k) * 10, z + 40.0f);
-	}
-	glEnd();*/	
+	//glColor3f(0.2f, 0.2f, 0.2f);
+	//glBegin(GL_LINE_LOOP);
+	//for (float k = 0; k < 2 * GL_PI + GL_PI / 12; k += GL_PI / 12)
+	//{
+	//	glVertex3f(x + 40.0f + cos(k) * 10, y + 10.0f, z + 40.0f + sin(k) * 10);
+	//	glVertex3f(x + 40.0f + sin(k) * 10, y + 10.0f + cos(k) * 10, z + 40.0f);
+	//}
+	//glEnd();
 }
 
 //x,y,z - wspolrzedne r,h - rozmiary
@@ -766,6 +790,7 @@ void RenderScene(void)
 	pierscien(40, 0, 40, 15, 2.5); //pierwsze 3 to wspolrzedne, 2 od prawej to rozmiary
 	pierscien(40, -26.3, 40, 15, 2.6);
 	krzyz(40, -25, 40, 1.25);
+
 	//wiatrak(20, 1, 1, 0, 10, 0);
 	//wiatrak(1, 1, 20, 10, 10, -10);
 
