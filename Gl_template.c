@@ -864,6 +864,17 @@ void RenderScene(void)
 	glFlush();
 }
 
+///JAKIE MAMY FIGURY<------------------------jak cos wiecej znajdziesz dopisz :)
+///
+///trapez
+///trojkat
+///kolo
+///pierscien/okrag
+///walec
+///stozek
+///kwadrat
+///<-----------------------------
+
 
 // Select the pixel format for a given device context
 void SetDCPixelFormat(HDC hDC)
