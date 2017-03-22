@@ -37,6 +37,11 @@
 #define BITMAP_ID 0x4D42		// identyfikator formatu BMP
 #define GL_PI 3.14
 
+
+//<----------------------------------------------------------PROTOTYPY FUNKCJI
+void kolo(GLfloat x, GLfloat y, GLfloat z, GLfloat srednicaXZ, int red, int green, int blue);
+
+//<-----------------------------------------------------------Koniec Prototypy
 // Color Palette handle
 HPALETTE hPalette = NULL;
 int licznik = 0;
@@ -281,17 +286,32 @@ unsigned char *LoadBitmapFile(char *filename, BITMAPINFOHEADER *bitmapInfoHeader
 
 
 /// -------> Figury PODSTAWOWE które potem mozna wykorzstywac do budowania innych figur poprzez zmiane parametrow tych funkcji, zmieniamy rozmiar, po³o¿enie itp --------<//
-void walec(GLfloat x, GLfloat y, GLfloat z, GLfloat srednicaXZ, GLfloat wysokoscY, int red, int green, int blue)
+void walecOtwarty(GLfloat x, GLfloat y, GLfloat z, GLfloat srednicaXZ, GLfloat wysokoscY, int red, int green, int blue)
 {
 
 	glColor3ub(red, green, blue);
 	glBegin(GL_TRIANGLE_STRIP);
-	for (float k = 0; k < 2 * GL_PI + GL_PI / 12; k += GL_PI / 12)
+	for (float k = 0; k < 2 * GL_PI + GL_PI / 12; k += GL_PI / 24)
 	{
 		glVertex3d(x + sin(k) * srednicaXZ, y + wysokoscY, z + cos(k) * srednicaXZ);
 		glVertex3d(x + sin(k) * srednicaXZ, y, z + cos(k) * srednicaXZ);
 	}
 	glEnd();
+}
+
+void walecZamkniety(GLfloat x, GLfloat y, GLfloat z, GLfloat srednicaXZ, GLfloat wysokoscY, int red, int green, int blue)
+{
+
+	glColor3ub(red, green, blue);
+	glBegin(GL_TRIANGLE_STRIP);
+	for (float k = 0; k < 2 * GL_PI + GL_PI / 12; k += GL_PI / 24)
+	{
+		glVertex3d(x + sin(k) * srednicaXZ, y + wysokoscY, z + cos(k) * srednicaXZ);
+		glVertex3d(x + sin(k) * srednicaXZ, y, z + cos(k) * srednicaXZ);
+	}
+	glEnd();
+	kolo(x, y, z, srednicaXZ, red, green, blue);
+	kolo(x, y + wysokoscY, z, srednicaXZ, red, green, blue);
 }
 
 void kolo(GLfloat x, GLfloat y, GLfloat z, GLfloat srednicaXZ, int red, int green, int blue)
@@ -306,6 +326,17 @@ void kolo(GLfloat x, GLfloat y, GLfloat z, GLfloat srednicaXZ, int red, int gree
 	glEnd();
 }
 
+void okrag(GLfloat x, GLfloat y, GLfloat z, GLfloat srednicaXZ, GLfloat gruboscLini, int red, int green, int blue)
+{
+	glColor3ub(red, green, blue);
+	glLineWidth(gruboscLini);
+	glBegin(GL_LINE_STRIP);
+	for (float k = 0; k < 2 * GL_PI + GL_PI / 12; k += GL_PI / 24)
+	{
+		glVertex3f(x + cos(k) * srednicaXZ, y, z + sin(k) * srednicaXZ);
+	}
+	glEnd();
+}
 
 void ostroslup(GLfloat srodekPodstawyX, GLfloat srodekPodstawyY, GLfloat srodekPodstawyZ, GLfloat srednicaXZ, GLfloat wysokoscY, int red, int green, int blue)
 {
@@ -319,66 +350,91 @@ void ostroslup(GLfloat srodekPodstawyX, GLfloat srodekPodstawyY, GLfloat srodekP
 	glEnd();
 }
 
-
 /// --------> koniec figur podstawowych -------- ///
-
-
-
 
 
 
 //rysuje pojedynczy wirnik z silnikiem
 //parametry okreslaj¹, w którym miejscu narysowaæ ten wirnik na ka¿dej z osi
-void wiatrak(float x, float y, float z)
+void wiatrak(GLfloat x, GLfloat y, GLfloat z, GLfloat promienLopatki)
 {
 
-	//zrobimy 2 "lopatki" smigla tak jak na tym rysunku
-	glColor3ub(80, 70, 70);
+	//dwie "lopatki" smigla
+	glColor3ub(180, 180, 180);
 	glBegin(GL_TRIANGLE_FAN);
-	glVertex3f(x+0.0, y+5.0, z+0.0);
-	glVertex3f(x+cos(GL_PI / 18 * 9) * 10, y+5, z+sin(GL_PI / 18 * 9) * 10); //90 stopni
-	glVertex3f(x+cos(GL_PI / 18 * 11) * 10, y+5, z + sin(GL_PI / 18 * 11) * 10); //110
+	glVertex3f(x, y+5.0, z);
+	glVertex3f(x + cos(GL_PI / 18 * 9) * promienLopatki, y + 5, z + sin(GL_PI / 18 * 9) * promienLopatki); //90 stopni
+	glVertex3f(x+cos(GL_PI / 18 * 11) * promienLopatki, y+5, z + sin(GL_PI / 18 * 11) * promienLopatki); //110
 	glEnd();
 
 	glBegin(GL_TRIANGLE_FAN);
-	glVertex3f(x+0.0, y+5.0, z+0.0);
-	glVertex3f(x + cos(GL_PI / 18 * 27) * 10, y + 5, z + sin(GL_PI / 18 *27) * 10); //270
-	glVertex3f(x + cos(GL_PI / 18 * 29) * 10, y + 5, z + sin(GL_PI / 18 * 29) * 10); //290
+	glVertex3f(x, y + 5.0, z);
+	glVertex3f(x + cos(GL_PI / 18 * 27) * promienLopatki, y + 5, z + sin(GL_PI / 18 *27) * promienLopatki); //270
+	glVertex3f(x + cos(GL_PI / 18 * 29) * promienLopatki, y + 5, z + sin(GL_PI / 18 * 29) * promienLopatki); //290
 	glEnd();
 
+	//nakretka na smigle
+	walecZamkniety(x, y + 4.5, z, 1, 1.5, 0, 0, 0);
+	ostroslup(x, y + 6, z, 0.7, 1.2, 130, 130, 130);
 
-	//walec(x, y + 5, z, 1, 1, 0, 0, 0);
-	//ostroslup(x, y + 6, z, 0.7, 1.2, 20, 50, 90);
-	//glColor3ub(0, 0, 0);
-	//glBegin(GL_TRIANGLE_STRIP);
-	//for (float k = 0; k < GL_PI * 2 + GL_PI / 12; k += GL_PI / 12)
-	//{
-	//	glVertex3f(x + cos(k), y + 6, z + sin(k));
-	//	glVertex3f(x + cos(k), y+5, z + sin(k));
-	//}
-	//glEnd();
+	//czerwone kolo pod smiglem
+	walecZamkniety(x, y + 4, z, 1, 0.5, 160, 50, 50);
+	walecZamkniety(x, y + 3, z, 2.5, 1, 160, 50, 50);
 
-	//glColor3ub(0, 1, 0);
-	//glBegin(GL_TRIANGLE_FAN);
-	//glVertex3f(x + 0.0, y+5.0, z + 0.0);
-	//for (float k = 0; k < GL_PI * 2 + GL_PI / 12; k += GL_PI / 12)
-	//{
-	//	glVertex3f(x + cos(k) * 2, y + 5, z + sin(k) * 2);
-	//}
-	//glEnd();
-
-
-
-	//walec jako silnik :D
-	//glColor3f(0, 1, 0);
-	//glBegin(GL_TRIANGLE_STRIP);
-	//for (float k = 0; k < GL_PI * 2 + GL_PI / 12; k += GL_PI / 12)
-	//{
-	//	glVertex3f(x + cos(k) * 2, y + 5, z + sin(k) * 2);
-	//	glVertex3f(x + cos(k) * 2, y - 5, z + sin(k) * 2);
-	//}
-	//glEnd();
+	//czarne kolo pod czerwonym + polaczenie z uchwytem
+	walecZamkniety(x, y + 2, z, 2.5, 1, 0, 0, 0);
+	walecZamkniety(x, y + 1, z, 1, 1, 20, 20, 20);
 }
+
+void lacznikSmigloBaza(GLfloat smigloX, GLfloat smigloY, GLfloat smigloZ)
+{
+	if (smigloX == 0 && smigloY == 0 && smigloZ == 0)
+	{
+		walecZamkniety(smigloX, smigloY, smigloZ, 3, 1, 70, 110, 110);
+		glColor3ub(20, 80, 70);
+		glBegin(GL_POLYGON);
+		glVertex3f(smigloX + 3, smigloY, smigloZ-1);
+		glVertex3f(smigloX + 12, smigloY - 2, smigloZ + 5);
+		glVertex3f(smigloX + 5, smigloY - 2, smigloZ + 12);
+		glVertex3f(smigloX-1, smigloY, smigloZ + 3);
+		glEnd();
+	}
+	else if (smigloX == 40 && smigloY == 0 && smigloZ == 0)
+	{
+		walecZamkniety(smigloX, smigloY, smigloZ, 3, 1, 70, 110, 110);
+		glColor3ub(20, 80, 70);
+		glBegin(GL_POLYGON);
+		glVertex3f(smigloX + 3, smigloY, smigloZ+1);
+		glVertex3f(smigloX - 5, smigloY - 2, smigloZ + 11);
+		glVertex3f(smigloX -12, smigloY - 2, smigloZ + 5);
+		glVertex3f(smigloX-3, smigloY, smigloZ-1);
+		glEnd();
+	}
+	else if (smigloX == 40 && smigloY == 0 && smigloZ == 40)
+	{
+		walecZamkniety(smigloX, smigloY, smigloZ, 3, 1, 70, 110, 110);
+		glColor3ub(20, 80, 70);
+		glBegin(GL_POLYGON);
+		glVertex3f(smigloX + 3, smigloY, smigloZ -1);
+		glVertex3f(smigloX - 5, smigloY - 2, smigloZ - 11);
+		glVertex3f(smigloX - 12, smigloY - 2, smigloZ - 5);
+		glVertex3f(smigloX - 3, smigloY, smigloZ + 1);
+		glEnd();
+	}
+	else if (smigloX == 0 && smigloY == 0 && smigloZ == 40)
+	{
+		walecZamkniety(smigloX, smigloY, smigloZ, 3, 1, 70, 110, 110);
+		glColor3ub(20, 80, 70);
+		glBegin(GL_POLYGON);
+		glVertex3f(smigloX + 3, smigloY, smigloZ + 1);
+		glVertex3f(smigloX + 12, smigloY - 2, smigloZ - 5);
+		glVertex3f(smigloX + 5, smigloY - 2, smigloZ - 12);
+		glVertex3f(smigloX - 3, smigloY, smigloZ - 1);
+		glEnd();
+	}
+}
+
+
 
 //w sumie to nwm co to bedzie jeszcze
 // parametry domyslnie ustawiac na zera
@@ -782,17 +838,18 @@ void RenderScene(void)
 	glPolygonMode(GL_BACK, GL_LINE);
 
 	uklad();
-	kamera(0, 0, 0);	// wspol zerowe ustawiaja obiekt dokladnie pomiedzy czterema wiatrakami
-	wiatrak(0,0,0);
-	wiatrak(80, 0, 80);
-	wiatrak(0, 0, 80);
-	wiatrak(80, 0, 0);
-	pierscien(40, 0, 40, 15, 2.5); //pierwsze 3 to wspolrzedne, 2 od prawej to rozmiary
-	pierscien(40, -26.3, 40, 15, 2.6);
-	krzyz(40, -25, 40, 1.25);
-
-	//wiatrak(20, 1, 1, 0, 10, 0);
-	//wiatrak(1, 1, 20, 10, 10, -10);
+	kamera(-20, -4, -20);	// wspol zerowe ustawiaja obiekt dokladnie pomiedzy czterema wiatrakami
+	wiatrak(0, 0, 0, 15);
+	wiatrak(40, 0, 40, 15);
+	wiatrak(0, 0, 40, 15);
+	wiatrak(40, 0, 0, 15);
+	pierscien(20, -4, 20, 15, 2.5); //pierwsze 3 to wspolrzedne, 2 od prawej to rozmiary
+	pierscien(20, -30.3, 20, 15, 2.6);
+	krzyz(20, -29, 20, 1.25);
+	lacznikSmigloBaza(0, 0, 0);  //lacznik wirnika o podanych wspolrzednych itd.
+	lacznikSmigloBaza(40, 0, 0);
+	lacznikSmigloBaza(40, 0, 40);
+	lacznikSmigloBaza(0, 0, 40);
 
 	//Uzyskanie siatki:
 	//glPolygonMode(GL_FRONT_AND_BACK,GL_LINE);
