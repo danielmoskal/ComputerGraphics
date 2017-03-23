@@ -152,6 +152,7 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="..\Gl_template.c" />
+    <ClCompile Include="ukladXYZ.cpp" />
   </ItemGroup>
   <ItemGroup>
     <None Include="..\RESOURCE.APS" />
@@ -160,6 +161,7 @@
   <ItemGroup>
     <ClInclude Include="..\RESOURCE.H" />
     <ClInclude Include="resource.h" />
+    <ClInclude Include="ukladXYZ.h" />
   </ItemGroup>
   <ItemGroup>
     <ResourceCompile Include="szescian.rc" />
