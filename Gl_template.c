@@ -33,12 +33,12 @@
 #include <stdio.h>
 #include "resource.h"           // About box resource identifiers.
 
+
 #define glRGB(x, y, z)	glColor3ub((GLubyte)x, (GLubyte)y, (GLubyte)z)
 #define BITMAP_ID 0x4D42		// identyfikator formatu BMP
 #define GL_PI 3.14
 
 //--------------MOJE KLASY--------------------//
-#include "ukladXYZ.h";
 
 
 //<----------------------------------------------------------PROTOTYPY FUNKCJI
@@ -81,9 +81,8 @@ BOOL APIENTRY AboutDlgProc(HWND hDlg, UINT message, UINT wParam, LONG lParam);
 void SetDCPixelFormat(HDC hDC);
 
 
-
 // Reduces a normal vector specified as a set of three coordinates,
-// to a unit normal vector of length one.
+ //to a unit normal vector of length one.
 void ReduceToUnit(float vector[3])
 {
 	float length;
@@ -341,7 +340,7 @@ void okrag(GLfloat x, GLfloat y, GLfloat z, GLfloat srednicaXZ, GLfloat gruboscL
 	glEnd();
 }
 
-void ostroslup(GLfloat srodekPodstawyX, GLfloat srodekPodstawyY, GLfloat srodekPodstawyZ, GLfloat srednicaXZ, GLfloat wysokoscY, int red, int green, int blue)
+void stozek(GLfloat srodekPodstawyX, GLfloat srodekPodstawyY, GLfloat srodekPodstawyZ, GLfloat srednicaXZ, GLfloat wysokoscY, int red, int green, int blue)
 {
 	glColor3ub(red, green, blue);
 	glBegin(GL_TRIANGLE_FAN);
@@ -352,6 +351,7 @@ void ostroslup(GLfloat srodekPodstawyX, GLfloat srodekPodstawyY, GLfloat srodekP
 	}
 	glEnd();
 }
+
 
 /// --------> koniec figur podstawowych -------- ///
 
@@ -378,7 +378,7 @@ void wiatrak(GLfloat x, GLfloat y, GLfloat z, GLfloat promienLopatki)
 
 	//nakretka na smigle
 	walecZamkniety(x, y + 4.5, z, 1, 1.5, 0, 0, 0);
-	ostroslup(x, y + 6, z, 0.7, 1.2, 130, 130, 130);
+	stozek(x, y + 6, z, 0.7, 1.2, 130, 130, 130);
 
 	//czerwone kolo pod smiglem
 	walecZamkniety(x, y + 4, z, 1, 0.5, 160, 50, 50);
@@ -441,82 +441,59 @@ void lacznikSmigloBaza(GLfloat smigloX, GLfloat smigloY, GLfloat smigloZ)
 
 //w sumie to nwm co to bedzie jeszcze
 // parametry domyslnie ustawiac na zera
-void kamera(float x, float y, float z)
+void kamera(GLfloat x, GLfloat y, GLfloat z)
 {
 	//gorna sciana
 	glColor3f(0, 0, 1);
 	glBegin(GL_QUADS);
-	glVertex3f(x + 30.0f, y + -5.0f, z + 30.0f);
-	glVertex3f(x + 50.0f, y + -5.0f, z + 30.0f);
-	glVertex3f(x + 50.0f, y + -5.0f, z + 50.0f);
-	glVertex3f(x + 30.0f, y + -5.0f, z + 50.0f);
+	glVertex3f(x + 35.0f, y + -5.0f, z + 30.0f);
+	glVertex3f(x + 45.0f, y + -5.0f, z + 30.0f);
+	glVertex3f(x + 45.0f, y + -5.0f, z + 50.0f);
+	glVertex3f(x + 35.0f, y + -5.0f, z + 50.0f);
 	glEnd();
 
 	//dolna sciana
 	glBegin(GL_QUADS);
-	glVertex3f(x + 30.0f, y + -15.0f, z + 30.0f);
-	glVertex3f(x + 50.0f, y + -15.0f, z + 30.0f);
-	glVertex3f(x + 50.0f, y + -15.0f, z + 50.0f);
-	glVertex3f(x + 30.0f, y + -15.0f, z + 50.0f);
+	glVertex3f(x + 35.0f, y + -15.0f, z + 30.0f);
+	glVertex3f(x + 45.0f, y + -15.0f, z + 30.0f);
+	glVertex3f(x + 45.0f, y + -15.0f, z + 50.0f);
+	glVertex3f(x + 35.0f, y + -15.0f, z + 50.0f);
 	glEnd();
-
-	/*---------------linie pionowe---------------*/
-	glColor3f(0.8f, 0.0f, 0.8f);
-	glBegin(GL_LINES);
-	glVertex3f(x + 30.0f, y + -5.0f, z + 30.0f);
-	glVertex3f(x + 30.0f, y + -15.0f, z + 30.0f);
-	glEnd();
-
-	glBegin(GL_LINES);
-	glVertex3f(x + 30.0f, y + -5.0f, z + 50.0f);
-	glVertex3f(x + 30.0f, y + -15.0f, z + 50.0f);
-	glEnd();
-
-	glBegin(GL_LINES);
-	glVertex3f(x + 50.0f, y + -5.0f, z + 30.0f);
-	glVertex3f(x + 50.0f, y + -15.0f, z + 30.0f);
-	glEnd();
-
-	glBegin(GL_LINES);
-	glVertex3f(x + 50.0f, y + -5.0f, z + 50.0f);
-	glVertex3f(x + 50.0f, y + -15.0f, z + 50.0f);
-	glEnd();
-	/*---------------koniec---------------*/
 
 	/*---------------sciany boczne---------------*/
 	glColor3f(0.1f, 0.4f, 0.9f);
 	glBegin(GL_TRIANGLE_STRIP);
-	glVertex3f(x + 30.0f, y + -5.0f, z + 30.0f);
-	glVertex3f(x + 50.0f, y + -5.0f, z + 30.0f);
-	glVertex3f(x + 30.0f, y + -15.0f, z + 30.0f);
-	glVertex3f(x + 50.0f, y + -15.0f, z + 30.0f);
+	glVertex3f(x + 35.0f, y + -5.0f, z + 30.0f);
+	glVertex3f(x + 45.0f, y + -5.0f, z + 30.0f);
+	glVertex3f(x + 35.0f, y + -15.0f, z + 30.0f);
+	glVertex3f(x + 45.0f, y + -15.0f, z + 30.0f);
 	glEnd();
 
 	glBegin(GL_TRIANGLE_STRIP);
-	glVertex3f(x + 30.0f, y + -5.0f, z + 30.0f);
-	glVertex3f(x + 30.0f, y + -5.0f, z + 50.0f);
-	glVertex3f(x + 30.0f, y + -15.0f, z + 30.0f);
-	glVertex3f(x + 30.0f, y + -15.0f, z + 50.0f);
+	glVertex3f(x + 35.0f, y + -5.0f, z + 30.0f);
+	glVertex3f(x + 35.0f, y + -5.0f, z + 50.0f);
+	glVertex3f(x + 35.0f, y + -15.0f, z + 30.0f);
+	glVertex3f(x + 35.0f, y + -15.0f, z + 50.0f);
 	glEnd();
 
 	glBegin(GL_TRIANGLE_STRIP);
-	glVertex3f(x + 30.0f, y + -5.0f, z + 50.0f);
-	glVertex3f(x + 50.0f, y + -5.0f, z + 50.0f);
-	glVertex3f(x + 30.0f, y + -15.0f, z + 50.0f);
-	glVertex3f(x + 50.0f, y + -15.0f, z + 50.0f);
+	glVertex3f(x + 35.0f, y + -5.0f, z + 50.0f);
+	glVertex3f(x + 45.0f, y + -5.0f, z + 50.0f);
+	glVertex3f(x + 35.0f, y + -15.0f, z + 50.0f);
+	glVertex3f(x + 45.0f, y + -15.0f, z + 50.0f);
 	glEnd();
 
 	glBegin(GL_TRIANGLE_STRIP);
-	glVertex3f(x + 50.0f, y + -5.0f, z + 30.0f);
-	glVertex3f(x + 50.0f, y + -5.0f, z + 50.0f);
-	glVertex3f(x + 50.0f, y + -15.0f, z + 30.0f);
-	glVertex3f(x + 50.0f, y + -15.0f, z + 50.0f);
+	glVertex3f(x + 45.0f, y + -5.0f, z + 30.0f);
+	glVertex3f(x + 45.0f, y + -5.0f, z + 50.0f);
+	glVertex3f(x + 45.0f, y + -15.0f, z + 30.0f);
+	glVertex3f(x + 45.0f, y + -15.0f, z + 50.0f);
 	glEnd();
 
 	/*---------------pierwszy walec do kamerki---------------*/
 	glColor3f(1.0f, 0.2f, 0.3f);
 	glBegin(GL_TRIANGLE_STRIP);
-	for (float k = 0; k < 2 * GL_PI + GL_PI / 12; k += GL_PI / 12)
+	for (GLfloat k = 0; k < 2 * GL_PI + GL_PI / 12; k += GL_PI / 12)
 	{
 		glVertex3f(x + 40.0f + cos(k) * 3, y + -10.5f + sin(k) * 3, z + 45.0f);
 		glVertex3f(x + 40.0f + cos(k) * 3, y + -10.5f + sin(k) * 3, z + 55.0f);
@@ -526,7 +503,7 @@ void kamera(float x, float y, float z)
 	//kolo w pierwszym walcu
 	glBegin(GL_TRIANGLE_FAN);
 	glVertex3f(x + 40.0f, y + -10.5f, z + 55.0f);
-	for (float k = 0; k < 2 * GL_PI + GL_PI / 12; k += GL_PI / 12)
+	for (GLfloat k = 0; k < 2 * GL_PI + GL_PI / 12; k += GL_PI / 12)
 	{
 		glVertex3f(x + 40.0f + cos(k) * 3, y + -10.5f + sin(k) * 3, z + 55.0f);
 	}
@@ -535,7 +512,7 @@ void kamera(float x, float y, float z)
 	/*---------------drugi walec do kamerki---------------*/
 	glColor3f(0.6f, 0.0f, 0.4f);
 	glBegin(GL_TRIANGLE_STRIP);
-	for (float k = 0; k < 2 * GL_PI + GL_PI / 12; k += GL_PI / 12)
+	for (GLfloat k = 0; k < 2 * GL_PI + GL_PI / 12; k += GL_PI / 12)
 	{
 		glVertex3f(x + 40.0f + cos(k) * 2.15, y + -10.5f + sin(k) * 2.15, z + 55.0f);
 		glVertex3f(x + 40.0f + cos(k) * 2.15, y + -10.5f + sin(k) * 2.15, z + 59.0f);
@@ -545,7 +522,7 @@ void kamera(float x, float y, float z)
 	//kolo w drugim walcu
 	glBegin(GL_TRIANGLE_FAN);
 	glVertex3f(x + 40.0f, y + -10.5f, z + 59.0f);
-	for (float k = 0; k < 2 * GL_PI + GL_PI / 12; k += GL_PI / 12)
+	for (GLfloat k = 0; k < 2 * GL_PI + GL_PI / 12; k += GL_PI / 12)
 	{
 		glVertex3f(x + 40.0f + cos(k) * 2.15, y + -10.5f + sin(k) * 2.15, z + 59.0f);
 	}
@@ -554,7 +531,7 @@ void kamera(float x, float y, float z)
 	/*---------------trzeci walec do kamerki---------------*/
 	glColor3f(0.9f, 0.0f, 0.2f);
 	glBegin(GL_TRIANGLE_STRIP);
-	for (float k = 0; k < 2 * GL_PI + GL_PI / 12; k += GL_PI / 12)
+	for (GLfloat k = 0; k < 2 * GL_PI + GL_PI / 12; k += GL_PI / 12)
 	{
 		glVertex3f(x + 40.0f + cos(k) * 1.5, y + -10.5f + sin(k) * 1.5, z + 59.0f);
 		glVertex3f(x + 40.0f + cos(k) * 1.5, y + -10.5f + sin(k) * 1.5, z + 62.0f);
@@ -564,7 +541,7 @@ void kamera(float x, float y, float z)
 	//kolo w trzecim walcu
 	glBegin(GL_TRIANGLE_FAN);
 	glVertex3f(x + 40.0f, y + -10.5f, z + 62.0f);
-	for (float k = 0; k < 2 * GL_PI + GL_PI / 12; k += GL_PI / 12)
+	for (GLfloat k = 0; k < 2 * GL_PI + GL_PI / 12; k += GL_PI / 12)
 	{
 		glVertex3f(x + 40.0f + cos(k) * 1.5, y + -10.5f + sin(k) * 1.5, z + 62.0f);
 	}
@@ -576,7 +553,7 @@ void kamera(float x, float y, float z)
 	glColor3f(0.0f, 0.0f, 0.0f);
 	glBegin(GL_TRIANGLE_STRIP);
 	glVertex3f(x + 40.0f, y + -15.0f, z + 40.0f);
-	for (float k = 0; k < 2 * GL_PI + GL_PI / 12; k += GL_PI / 12)
+	for (GLfloat k = 0; k < 2 * GL_PI + GL_PI / 12; k += GL_PI / 12)
 	{
 		glVertex3f(x + 40.0f + cos(k) * 1.5, y + -15.0f, z + 40.0f + sin(k) * 1.5);
 		glVertex3f(x + 40.0f + cos(k) * 1.5, y + -25.0f, z + 40.0f + sin(k) * 1.5);
@@ -587,7 +564,7 @@ void kamera(float x, float y, float z)
 	glColor3f(0.4f, 0.0f, 0.0f);
 	glBegin(GL_TRIANGLE_STRIP);
 	//glVertex3f(x + 40.0f, y + -22.0f, z + 40.0f);
-	for (float k = 0; k < 2 * GL_PI + GL_PI / 12; k += GL_PI / 12)
+	for (GLfloat k = 0; k < 2 * GL_PI + GL_PI / 12; k += GL_PI / 12)
 	{
 		glVertex3f(x + 40.0f + cos(k) * 1.5, y + -22.0f, z + 40.0f + sin(k) * 1.5);
 		glVertex3f(x + 40.0f + cos(k) * 1.5, y + -26.0f, z + 50.0f + sin(k) * 1.5);
@@ -598,7 +575,7 @@ void kamera(float x, float y, float z)
 	glColor3f(0.4f, 0.0f, 0.0f);
 	glBegin(GL_TRIANGLE_STRIP);
 	//glVertex3f(x + 40.0f, y + -22.0f, z + 40.0f);
-	for (float k = 0; k < 2 * GL_PI + GL_PI / 12; k += GL_PI / 12)
+	for (GLfloat k = 0; k < 2 * GL_PI + GL_PI / 12; k += GL_PI / 12)
 	{
 		glVertex3f(x + 40.0f + cos(k) * 1.5, y + -22.0f, z + 40.0f + sin(k) * 1.5);
 		glVertex3f(x + 40.0f + cos(k) * 1.5, y + -26.0f, z + 30.0f + sin(k) * 1.5);
@@ -609,7 +586,7 @@ void kamera(float x, float y, float z)
 	glColor3f(0.4f, 0.0f, 0.0f);
 	glBegin(GL_TRIANGLE_STRIP);
 	//glVertex3f(x + 40.0f, y + -22.0f, z + 40.0f);
-	for (float k = 0; k < 2 * GL_PI + GL_PI / 12; k += GL_PI / 12)
+	for (GLfloat k = 0; k < 2 * GL_PI + GL_PI / 12; k += GL_PI / 12)
 	{
 		glVertex3f(x + 40.0f + cos(k) * 1.5, y + -22.0f, z + 40.0f + sin(k) * 1.5);
 		glVertex3f(x + 30.0f + cos(k) * 1.5, y + -26.0f, z + 40.0f + sin(k) * 1.5);
@@ -620,7 +597,7 @@ void kamera(float x, float y, float z)
 	glColor3f(0.4f, 0.0f, 0.0f);
 	glBegin(GL_TRIANGLE_STRIP);
 	//glVertex3f(x + 40.0f, y + -22.0f, z + 40.0f);
-	for (float k = 0; k < 2 * GL_PI + GL_PI / 12; k += GL_PI / 12)
+	for (GLfloat k = 0; k < 2 * GL_PI + GL_PI / 12; k += GL_PI / 12)
 	{
 		glVertex3f(x + 40.0f + cos(k) * 1.5, y + -22.0f, z + 40.0f + sin(k) * 1.5);
 		glVertex3f(x + 50.0f + cos(k) * 1.5, y + -26.0f, z + 40.0f + sin(k) * 1.5);
@@ -629,25 +606,25 @@ void kamera(float x, float y, float z)
 
 
 	/*---------------nwm co to ale wyglada zajebiscie---------------*/
-	//glColor3f(0.2f, 0.2f, 0.2f);
-	//glBegin(GL_LINE_LOOP);
-	//for (float k = 0; k < 2 * GL_PI + GL_PI / 12; k += GL_PI / 12)
-	//{
-	//	glVertex3f(x + 40.0f + cos(k) * 10, y + 10.0f, z + 40.0f + sin(k) * 10);
-	//	glVertex3f(x + 40.0f + sin(k) * 10, y + 10.0f + cos(k) * 10, z + 40.0f);
-	//}
-	//glEnd();
+	/*glColor3f(0.2f, 0.2f, 0.2f);
+	glBegin(GL_LINE_LOOP);
+	for (float k = 0; k < 2 * GL_PI + GL_PI / 12; k += GL_PI / 12)
+	{
+		glVertex3f(x + 40.0f + cos(k) * 10, y + 10.0f, z + 40.0f + sin(k) * 10);
+		glVertex3f(x + 40.0f + sin(k) * 10, y + 10.0f + cos(k) * 10, z + 40.0f);
+	}
+	glEnd();*/
 }
 
 //x,y,z - wspolrzedne r,h - rozmiary
-void pierscien(float x, float y, float z, double r, double h)
+void pierscien(GLfloat x, GLfloat y, GLfloat z, GLdouble r, GLdouble h)
 {
 	glPolygonMode(GL_FRONT_AND_BACK, GL_FILL);
 	{
-		float a, b;
+		GLfloat a, b;
 		glColor3f(0.0f, 0.0f, 0.5f);
 		glBegin(GL_TRIANGLE_STRIP);
-		for (float k = 0; k <= 2 * GL_PI; k += GL_PI / 16.0)
+		for (GLfloat k = 0; k <= 2 * GL_PI; k += GL_PI / 16.0)
 		{
 			a = r* sin(k);
 			b = r* cos(k);
@@ -659,7 +636,7 @@ void pierscien(float x, float y, float z, double r, double h)
 		glEnd();
 
 		glBegin(GL_TRIANGLE_STRIP);
-		for (float k = 0; k <= 2 * GL_PI; k += GL_PI / 16.0)
+		for (GLfloat k = 0; k <= 2 * GL_PI; k += GL_PI / 16.0)
 		{
 			a = r* sin(k);
 			b = r* cos(k);
@@ -672,7 +649,7 @@ void pierscien(float x, float y, float z, double r, double h)
 
 		glColor3f(0.0f, 0.0f, 0.0f);
 		glBegin(GL_TRIANGLE_STRIP);
-		for (float k = 0; k <= 2 * GL_PI; k += GL_PI / 16.0)
+		for (GLfloat k = 0; k <= 2 * GL_PI; k += GL_PI / 16.0)
 		{
 			a = r* sin(k);
 			b = r* cos(k);
@@ -683,7 +660,7 @@ void pierscien(float x, float y, float z, double r, double h)
 
 		glColor3f(0.0f, 0.0f, 0.0f);
 		glBegin(GL_TRIANGLE_STRIP);
-		for (float k = 0; k <= 2 * GL_PI; k += GL_PI / 16.0)
+		for (GLfloat k = 0; k <= 2 * GL_PI; k += GL_PI / 16.0)
 		{
 			a = r* sin(k);
 			b = r* cos(k);
@@ -696,15 +673,16 @@ void pierscien(float x, float y, float z, double r, double h)
 	}
 }
 
-void krzyz(float x, float y, float z, float r)
+
+void krzyz(GLfloat x, GLfloat y, GLfloat z, GLfloat r)
 {
-	float a, b;
+	GLfloat a, b;
 	glPolygonMode(GL_FRONT_AND_BACK, GL_FILL);
 	{
 		//walec wzdluz osi x
 		glColor3f(0.0f, 0.5f, 0.5f);
 		glBegin(GL_TRIANGLE_STRIP);
-		for (float k = 0; k < 2 * GL_PI; k += GL_PI / 16.0)
+		for (GLfloat k = 0; k < 2 * GL_PI; k += GL_PI / 16.0)
 		{
 			a = r *sin(k);
 			b = r *cos(k);
@@ -716,7 +694,7 @@ void krzyz(float x, float y, float z, float r)
 		//kolo na jednym zakonczeniu walca
 		glColor3f(0.0f, 0.5f, 0.5f);
 		glBegin(GL_TRIANGLE_FAN);
-		for (float k = 0; k < 2 * GL_PI; k += GL_PI / 16.0)
+		for (GLfloat k = 0; k < 2 * GL_PI; k += GL_PI / 16.0)
 		{
 			a = r *sin(k);
 			b = r *cos(k);
@@ -727,7 +705,7 @@ void krzyz(float x, float y, float z, float r)
 		//kolo na drugim zakonczeniu walca
 		glColor3f(0.0f, 0.5f, 0.5f);
 		glBegin(GL_TRIANGLE_FAN);
-		for (float k = 0; k < 2 * GL_PI; k += GL_PI / 16.0)
+		for (GLfloat k = 0; k < 2 * GL_PI; k += GL_PI / 16.0)
 		{
 			a = r *sin(k);
 			b = r *cos(k);
@@ -738,7 +716,7 @@ void krzyz(float x, float y, float z, float r)
 		//walec wzdluz osi z
 		glColor3f(0.0f, 0.5f, 0.5f);
 		glBegin(GL_TRIANGLE_STRIP);
-		for (float k = 0; k < 2 * GL_PI; k += GL_PI / 16.0)
+		for (GLfloat k = 0; k < 2 * GL_PI; k += GL_PI / 16.0)
 		{
 			a = r *sin(k);
 			b = r *cos(k);
@@ -750,7 +728,7 @@ void krzyz(float x, float y, float z, float r)
 		//kolo na jednym zakonczeniu walca
 		glColor3f(0.0f, 0.5f, 0.5f);
 		glBegin(GL_TRIANGLE_FAN);
-		for (float k = 0; k < 2 * GL_PI; k += GL_PI / 16.0)
+		for (GLfloat k = 0; k < 2 * GL_PI; k += GL_PI / 16.0)
 		{
 			a = r *sin(k);
 			b = r *cos(k);
@@ -761,7 +739,7 @@ void krzyz(float x, float y, float z, float r)
 		//kolo na drugim zakonczeniu walca
 		glColor3f(0.0f, 0.5f, 0.5f);
 		glBegin(GL_TRIANGLE_FAN);
-		for (float k = 0; k < 2 * GL_PI; k += GL_PI / 16.0)
+		for (GLfloat k = 0; k < 2 * GL_PI; k += GL_PI / 16.0)
 		{
 			a = r *sin(k);
 			b = r *cos(k);
@@ -786,38 +764,38 @@ void krzyz(float x, float y, float z, float r)
 //x - czerwony,
 //y - zielony,
 //z - niebieski
-//void uklad(void)
-//{
-//	glPolygonMode(GL_FRONT_AND_BACK, GL_FILL);
-//	{
-//		// Parametry wierzcholkow
-//		glLineWidth(1);
-//		GLfloat sx1[3] = { -50.0f,0.0f,0.0f };
-//		GLfloat sx2[3] = { 50.0f,0.0f,0.0f };
-//		GLfloat sy1[3] = { 0.0f,-50.0f,0.0f };
-//		GLfloat sy2[3] = { 0.0f,50.0f,0.0f };
-//		GLfloat sz1[3] = { 0.0f,0.0f,-50.0f };
-//		GLfloat sz2[3] = { 0.0f,0.0f,50.0f };
-//
-//		glColor3f(1.0f, 0.0f, 0.0f);
-//		glBegin(GL_LINES);
-//		glVertex3fv(sx1);
-//		glVertex3fv(sx2);
-//		glEnd();
-//
-//		glColor3f(0.0f, 1.0f, 0.0f);
-//		glBegin(GL_LINES);
-//		glVertex3fv(sy1);
-//		glVertex3fv(sy2);
-//		glEnd();
-//
-//		glColor3f(0.0f, 0.0f, 1.0f);
-//		glBegin(GL_LINES);
-//		glVertex3fv(sz1);
-//		glVertex3fv(sz2);
-//		glEnd();
-//	}
-//}
+void uklad(void)
+{
+	glPolygonMode(GL_FRONT_AND_BACK, GL_FILL);
+	{
+		// Parametry wierzcholkow
+		glLineWidth(1);
+		GLfloat sx1[3] = { -50.0f,0.0f,0.0f };
+		GLfloat sx2[3] = { 50.0f,0.0f,0.0f };
+		GLfloat sy1[3] = { 0.0f,-50.0f,0.0f };
+		GLfloat sy2[3] = { 0.0f,50.0f,0.0f };
+		GLfloat sz1[3] = { 0.0f,0.0f,-50.0f };
+		GLfloat sz2[3] = { 0.0f,0.0f,50.0f };
+
+		glColor3f(1.0f, 0.0f, 0.0f);
+		glBegin(GL_LINES);
+		glVertex3fv(sx1);
+		glVertex3fv(sx2);
+		glEnd();
+
+		glColor3f(0.0f, 1.0f, 0.0f);
+		glBegin(GL_LINES);
+		glVertex3fv(sy1);
+		glVertex3fv(sy2);
+		glEnd();
+
+		glColor3f(0.0f, 0.0f, 1.0f);
+		glBegin(GL_LINES);
+		glVertex3fv(sz1);
+		glVertex3fv(sz2);
+		glEnd();
+	}
+}
 
 // Called to draw scene
 void RenderScene(void)
@@ -840,6 +818,8 @@ void RenderScene(void)
 	//Sposób na odróŸnienie "przedniej" i "tylniej" œciany wielok¹ta:
 	glPolygonMode(GL_BACK, GL_LINE);
 
+	
+
 	uklad();
 	kamera(-20, -4, -20);	// wspol zerowe ustawiaja obiekt dokladnie pomiedzy czterema wiatrakami
 	wiatrak(0, 0, 0, 15);
@@ -854,6 +834,35 @@ void RenderScene(void)
 	lacznikSmigloBaza(40, 0, 40);
 	lacznikSmigloBaza(0, 0, 40);
 
+
+
+	
+
+	//tak na probe
+	/*glRotatef(90, 1, 0, 0);
+	kolo(20, 50, 15, 4, 0.0, 1.0, 0.0);
+
+	glRotatef(90, 0, 0, 1);
+	{
+		okrag(-15, 0, -15, 5, 2, 0.0, 1.0, 1.0);
+		okrag(-15, 0, -15, 10, 2, 0.0, 1.0, 1.0);
+		okrag(-15, 0, -15, 15, 2, 0.0, 1.0, 1.0);
+		okrag(-15, 0, -15, 20, 2, 0.0, 1.0, 1.0);
+		walecOtwarty(-15, 0, -15, 2.5, 20, 1, 1, 1);
+		walecOtwarty(-15, 0, -15, 2.5, -20, 1, 1, 1);
+
+		okrag(-15, 20, -15, 5, 2, 0.0, 1.0, 1.0);
+		okrag(-15, 20, -15, 10, 2, 0.0, 1.0, 1.0);
+		okrag(-15, 20, -15, 15, 2, 0.0, 1.0, 1.0);
+		okrag(-15, 20, -15, 20, 2, 0.0, 1.0, 1.0);
+
+		okrag(-15, -20, -15, 5, 2, 0.0, 1.0, 1.0);
+		okrag(-15, -20, -15, 10, 2, 0.0, 1.0, 1.0);
+		okrag(-15, -20, -15, 15, 2, 0.0, 1.0, 1.0);
+		okrag(-15, -20, -15, 20, 2, 0.0, 1.0, 1.0);
+	}*/
+
+	
 	//Uzyskanie siatki:
 	//glPolygonMode(GL_FRONT_AND_BACK,GL_LINE);
 
