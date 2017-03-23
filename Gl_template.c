@@ -402,7 +402,7 @@ void romb(GLfloat x, GLfloat y, GLfloat z, GLfloat dlugosc, GLfloat szerokosc, G
 		glVertex3f(x, y + wysokosc, z + dlugosc + half);
 		glEnd();
 
-		glColor3f(red, green, blue);
+		glColor3f(red, green, blue);	//ok
 		glBegin(GL_TRIANGLE_STRIP);
 		glVertex3f(x + szerokosc, y, z - half);
 		glVertex3f(x + szerokosc, y, z);
@@ -502,8 +502,6 @@ void lacznikSmigloBaza(GLfloat smigloX, GLfloat smigloY, GLfloat smigloZ)
 }
 
 
-
-//w sumie to nwm co to bedzie jeszcze
 // parametry domyslnie ustawiac na zera
 void kamera(GLfloat x, GLfloat y, GLfloat z)
 {
@@ -622,7 +620,6 @@ void kamera(GLfloat x, GLfloat y, GLfloat z)
 	glEnd();*/
 }
 
-//x,y,z - wspolrzedne r,h - rozmiary
 void pierscien(GLfloat x, GLfloat y, GLfloat z, GLdouble r, GLdouble h)
 {
 	glPolygonMode(GL_FRONT_AND_BACK, GL_FILL);
@@ -819,20 +816,20 @@ void RenderScene(void)
 
 
 	uklad();
-	//kamera(-20, 0, -27);	// wspol zerowe ustawiaja obiekt dokladnie pomiedzy czterema wiatrakami  -4 bylo
-	//wiatrak(0, 0, 0, 15);
-	//wiatrak(40, 0, 40, 15);
-	//wiatrak(0, 0, 40, 15);
-	//wiatrak(40, 0, 0, 15);
-	//pierscien(20, -4, 20, 15, 2.5); //pierwsze 3 to wspolrzedne, 2 od prawej to rozmiary
-	//krzyz(20, -2.75, 20, 1.25);
-	//walecZamkniety(20, -4, 20, 1.25, -5, 100, 100, 100);	//uchwyt do kamery
-	//lacznikSmigloBaza(0, 0, 0);  //lacznik wirnika o podanych wspolrzednych itd.
-	//lacznikSmigloBaza(40, 0, 0);
-	//lacznikSmigloBaza(40, 0, 40);
-	//lacznikSmigloBaza(0, 0, 40);
+	kamera(-20, 0, -27);	// obiekt dokladnie pomiedzy czterema wiatrakami
+	wiatrak(0, 0, 0, 15);
+	wiatrak(40, 0, 40, 15);
+	wiatrak(0, 0, 40, 15);
+	wiatrak(40, 0, 0, 15);
+	pierscien(20, -4, 20, 15, 2.5); 
+	krzyz(20, -2.75, 20, 1.25);
+	walecZamkniety(20, -4, 20, 1.25, -5, 100, 100, 100);	//uchwyt do kamery
+	lacznikSmigloBaza(0, 0, 0);  //lacznik wirnika o podanych wspolrzednych itd.
+	lacznikSmigloBaza(40, 0, 0);
+	lacznikSmigloBaza(40, 0, 40);
+	lacznikSmigloBaza(0, 0, 40);
 
-	romb(0, 0, 0, 5, 5, 5,1,0,0);
+	romb(20, 0, 20, 5, 5, 5,1,0,0);
 
 
 

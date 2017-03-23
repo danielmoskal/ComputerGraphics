@@ -9,6 +9,7 @@ JAKIE MAMY FIGURY<------------------------jak cos wiecej znajdziesz dopisz :)
 5.walec
 6.stozek
 7.kwadrat
+8.romb
 
 
 <-----------------------------
