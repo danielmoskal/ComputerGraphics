@@ -34,6 +34,7 @@
 #include "resource.h"           // About box resource identifiers.
 
 
+
 #define glRGB(x, y, z)	glColor3ub((GLubyte)x, (GLubyte)y, (GLubyte)z)
 #define BITMAP_ID 0x4D42		// identyfikator formatu BMP
 #define GL_PI 3.14
@@ -43,6 +44,7 @@
 
 //<----------------------------------------------------------PROTOTYPY FUNKCJI
 void kolo(GLfloat x, GLfloat y, GLfloat z, GLfloat srednicaXZ, int red, int green, int blue);
+
 
 //<-----------------------------------------------------------Koniec Prototypy
 // Color Palette handle
@@ -829,8 +831,10 @@ void RenderScene(void)
 	lacznikSmigloBaza(40, 0, 40);
 	lacznikSmigloBaza(0, 0, 40);
 
-	romb(20, 0, 20, 5, 5, 5,1,0,0);
+	
 
+	romb(20, -8, 18, 2.5, -5, -5, 0.0, 0.3, 0.3);
+	romb(20, -8, 18, 2.5, 5, -5, 0.0, 0.3, 0.3);
 
 
 	
