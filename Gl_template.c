@@ -352,6 +352,70 @@ void stozek(GLfloat srodekPodstawyX, GLfloat srodekPodstawyY, GLfloat srodekPods
 	glEnd();
 }
 
+void romb(GLfloat x, GLfloat y, GLfloat z, GLfloat dlugosc, GLfloat szerokosc, GLfloat wysokosc, float red, float green, float blue)
+{
+	GLfloat half = dlugosc / 2.0;
+
+	glPolygonMode(GL_FRONT_AND_BACK, GL_FILL);
+	{
+		//dolna sciana
+		glColor3f(red, green, blue);
+		glBegin(GL_QUADS);
+		glVertex3f(x, y, z - half);
+		glVertex3f(x + szerokosc, y, z - half);
+		glVertex3f(x + szerokosc, y, z + dlugosc);
+		glVertex3f(x, y, z + dlugosc);
+		glEnd();
+
+		//gorna sciana
+		glBegin(GL_QUADS);
+		glVertex3f(x, y + wysokosc, z);
+		glVertex3f(x + szerokosc, y + wysokosc, z);
+		glVertex3f(x + szerokosc, y + wysokosc, z + dlugosc + half);
+		glVertex3f(x, y + wysokosc, z + dlugosc + half);
+		glEnd();
+
+		/*---------------sciany boczne---------------*/
+		glColor3f(red, green, blue);	//ok
+		glBegin(GL_TRIANGLE_STRIP);
+		glVertex3f(x, y, z - half);
+		glVertex3f(x + szerokosc, y, z - half);
+		glVertex3f(x, y + wysokosc, z);
+		glVertex3f(x + szerokosc, y + wysokosc, z);
+		glEnd();
+
+		glColor3f(red, green, blue);	//ok
+		glBegin(GL_TRIANGLE_STRIP);
+		glVertex3f(x, y, z + dlugosc);
+		glVertex3f(x + szerokosc, y, z + dlugosc);
+		glVertex3f(x, y + wysokosc, z + dlugosc + half);
+		glVertex3f(x + szerokosc, y + wysokosc, z + dlugosc + half);
+		glEnd();
+
+		glColor3f(red, green, blue);	//ok
+		glBegin(GL_TRIANGLE_STRIP);
+		glVertex3f(x, y, z - half);
+		glVertex3f(x, y, z);
+		glVertex3f(x, y + wysokosc, z);
+		glVertex3f(x, y, z + dlugosc);
+		glVertex3f(x, y + wysokosc, z + dlugosc);
+		glVertex3f(x, y + wysokosc, z + dlugosc + half);
+		glEnd();
+
+		glColor3f(red, green, blue);
+		glBegin(GL_TRIANGLE_STRIP);
+		glVertex3f(x + szerokosc, y, z - half);
+		glVertex3f(x + szerokosc, y, z);
+		glVertex3f(x + szerokosc, y + wysokosc, z);
+		glVertex3f(x + szerokosc, y, z + dlugosc);
+		glVertex3f(x + szerokosc, y + wysokosc, z + dlugosc);
+		glVertex3f(x + szerokosc, y + wysokosc, z + dlugosc + half);
+		glEnd();
+
+	}
+}
+
+
 
 /// --------> koniec figur podstawowych -------- ///
 
@@ -446,48 +510,48 @@ void kamera(GLfloat x, GLfloat y, GLfloat z)
 	//gorna sciana
 	glColor3f(0, 0, 1);
 	glBegin(GL_QUADS);
-	glVertex3f(x + 35.0f, y + -5.0f, z + 30.0f);
-	glVertex3f(x + 45.0f, y + -5.0f, z + 30.0f);
-	glVertex3f(x + 45.0f, y + -5.0f, z + 50.0f);
-	glVertex3f(x + 35.0f, y + -5.0f, z + 50.0f);
+	glVertex3f(x + 37.0f, y + -6.0f, z + 35.0f);
+	glVertex3f(x + 43.0f, y + -6.0f, z + 35.0f);
+	glVertex3f(x + 43.0f, y + -6.0f, z + 50.0f);
+	glVertex3f(x + 37.0f, y + -6.0f, z + 50.0f);
 	glEnd();
 
 	//dolna sciana
 	glBegin(GL_QUADS);
-	glVertex3f(x + 35.0f, y + -15.0f, z + 30.0f);
-	glVertex3f(x + 45.0f, y + -15.0f, z + 30.0f);
-	glVertex3f(x + 45.0f, y + -15.0f, z + 50.0f);
-	glVertex3f(x + 35.0f, y + -15.0f, z + 50.0f);
+	glVertex3f(x + 37.0f, y + -14.0f, z + 35.0f);
+	glVertex3f(x + 43.0f, y + -14.0f, z + 35.0f);
+	glVertex3f(x + 43.0f, y + -14.0f, z + 50.0f);
+	glVertex3f(x + 37.0f, y + -14.0f, z + 50.0f);
 	glEnd();
 
 	/*---------------sciany boczne---------------*/
-	glColor3f(0.1f, 0.4f, 0.9f);
+	glColor3f(0.5f, 0.4f, 0.9f);
 	glBegin(GL_TRIANGLE_STRIP);
-	glVertex3f(x + 35.0f, y + -5.0f, z + 30.0f);
-	glVertex3f(x + 45.0f, y + -5.0f, z + 30.0f);
-	glVertex3f(x + 35.0f, y + -15.0f, z + 30.0f);
-	glVertex3f(x + 45.0f, y + -15.0f, z + 30.0f);
+	glVertex3f(x + 37.0f, y + -6.0f, z + 35.0f);
+	glVertex3f(x + 43.0f, y + -6.0f, z + 35.0f);
+	glVertex3f(x + 37.0f, y + -14.0f, z + 35.0f);
+	glVertex3f(x + 43.0f, y + -14.0f, z + 35.0f);
 	glEnd();
 
 	glBegin(GL_TRIANGLE_STRIP);
-	glVertex3f(x + 35.0f, y + -5.0f, z + 30.0f);
-	glVertex3f(x + 35.0f, y + -5.0f, z + 50.0f);
-	glVertex3f(x + 35.0f, y + -15.0f, z + 30.0f);
-	glVertex3f(x + 35.0f, y + -15.0f, z + 50.0f);
+	glVertex3f(x + 37.0f, y + -6.0f, z + 35.0f);
+	glVertex3f(x + 37.0f, y + -6.0f, z + 50.0f);
+	glVertex3f(x + 37.0f, y + -14.0f, z + 35.0f);
+	glVertex3f(x + 37.0f, y + -14.0f, z + 50.0f);
 	glEnd();
 
 	glBegin(GL_TRIANGLE_STRIP);
-	glVertex3f(x + 35.0f, y + -5.0f, z + 50.0f);
-	glVertex3f(x + 45.0f, y + -5.0f, z + 50.0f);
-	glVertex3f(x + 35.0f, y + -15.0f, z + 50.0f);
-	glVertex3f(x + 45.0f, y + -15.0f, z + 50.0f);
+	glVertex3f(x + 37.0f, y + -6.0f, z + 50.0f);
+	glVertex3f(x + 43.0f, y + -6.0f, z + 50.0f);
+	glVertex3f(x + 37.0f, y + -14.0f, z + 50.0f);
+	glVertex3f(x + 43.0f, y + -14.0f, z + 50.0f);
 	glEnd();
 
 	glBegin(GL_TRIANGLE_STRIP);
-	glVertex3f(x + 45.0f, y + -5.0f, z + 30.0f);
-	glVertex3f(x + 45.0f, y + -5.0f, z + 50.0f);
-	glVertex3f(x + 45.0f, y + -15.0f, z + 30.0f);
-	glVertex3f(x + 45.0f, y + -15.0f, z + 50.0f);
+	glVertex3f(x + 43.0f, y + -6.0f, z + 35.0f);
+	glVertex3f(x + 43.0f, y + -6.0f, z + 50.0f);
+	glVertex3f(x + 43.0f, y + -14.0f, z + 35.0f);
+	glVertex3f(x + 43.0f, y + -14.0f, z + 50.0f);
 	glEnd();
 
 	/*---------------pierwszy walec do kamerki---------------*/
@@ -546,64 +610,6 @@ void kamera(GLfloat x, GLfloat y, GLfloat z)
 		glVertex3f(x + 40.0f + cos(k) * 1.5, y + -10.5f + sin(k) * 1.5, z + 62.0f);
 	}
 	glEnd();
-
-	/*---------------stopki na bazie walca---------------*/
-
-	//pionowy pret pod obiektem								// <--- tu pozniej detali wiecej dorobie ----------------------------------
-	glColor3f(0.0f, 0.0f, 0.0f);
-	glBegin(GL_TRIANGLE_STRIP);
-	glVertex3f(x + 40.0f, y + -15.0f, z + 40.0f);
-	for (GLfloat k = 0; k < 2 * GL_PI + GL_PI / 12; k += GL_PI / 12)
-	{
-		glVertex3f(x + 40.0f + cos(k) * 1.5, y + -15.0f, z + 40.0f + sin(k) * 1.5);
-		glVertex3f(x + 40.0f + cos(k) * 1.5, y + -25.0f, z + 40.0f + sin(k) * 1.5);
-	}
-	glEnd();
-
-	//pierwsza stopka
-	glColor3f(0.4f, 0.0f, 0.0f);
-	glBegin(GL_TRIANGLE_STRIP);
-	//glVertex3f(x + 40.0f, y + -22.0f, z + 40.0f);
-	for (GLfloat k = 0; k < 2 * GL_PI + GL_PI / 12; k += GL_PI / 12)
-	{
-		glVertex3f(x + 40.0f + cos(k) * 1.5, y + -22.0f, z + 40.0f + sin(k) * 1.5);
-		glVertex3f(x + 40.0f + cos(k) * 1.5, y + -26.0f, z + 50.0f + sin(k) * 1.5);
-	}
-	glEnd();
-
-	//druga stopka
-	glColor3f(0.4f, 0.0f, 0.0f);
-	glBegin(GL_TRIANGLE_STRIP);
-	//glVertex3f(x + 40.0f, y + -22.0f, z + 40.0f);
-	for (GLfloat k = 0; k < 2 * GL_PI + GL_PI / 12; k += GL_PI / 12)
-	{
-		glVertex3f(x + 40.0f + cos(k) * 1.5, y + -22.0f, z + 40.0f + sin(k) * 1.5);
-		glVertex3f(x + 40.0f + cos(k) * 1.5, y + -26.0f, z + 30.0f + sin(k) * 1.5);
-	}
-	glEnd();
-
-	//trzecia stopka
-	glColor3f(0.4f, 0.0f, 0.0f);
-	glBegin(GL_TRIANGLE_STRIP);
-	//glVertex3f(x + 40.0f, y + -22.0f, z + 40.0f);
-	for (GLfloat k = 0; k < 2 * GL_PI + GL_PI / 12; k += GL_PI / 12)
-	{
-		glVertex3f(x + 40.0f + cos(k) * 1.5, y + -22.0f, z + 40.0f + sin(k) * 1.5);
-		glVertex3f(x + 30.0f + cos(k) * 1.5, y + -26.0f, z + 40.0f + sin(k) * 1.5);
-	}
-	glEnd();
-
-	//czwarta stopka
-	glColor3f(0.4f, 0.0f, 0.0f);
-	glBegin(GL_TRIANGLE_STRIP);
-	//glVertex3f(x + 40.0f, y + -22.0f, z + 40.0f);
-	for (GLfloat k = 0; k < 2 * GL_PI + GL_PI / 12; k += GL_PI / 12)
-	{
-		glVertex3f(x + 40.0f + cos(k) * 1.5, y + -22.0f, z + 40.0f + sin(k) * 1.5);
-		glVertex3f(x + 50.0f + cos(k) * 1.5, y + -26.0f, z + 40.0f + sin(k) * 1.5);
-	}
-	glEnd();
-
 
 	/*---------------nwm co to ale wyglada zajebiscie---------------*/
 	/*glColor3f(0.2f, 0.2f, 0.2f);
@@ -751,14 +757,6 @@ void krzyz(GLfloat x, GLfloat y, GLfloat z, GLfloat r)
 
 
 
-//cos bede dalej tutaj robil :D
-//void podstawa()
-//{
-//	glColor3f(0.1, 0.4, 0.0);
-//	glBegin(GL_TRIANGLE_FAN);
-//
-//}
-
 
 //mozna wylaczac w RenderScene jak przeszkadza, ogolnie pomaga ogarniac wymiary
 //x - czerwony,
@@ -818,21 +816,23 @@ void RenderScene(void)
 	//Sposób na odróŸnienie "przedniej" i "tylniej" œciany wielok¹ta:
 	glPolygonMode(GL_BACK, GL_LINE);
 
-	
+
 
 	uklad();
-	kamera(-20, -4, -20);	// wspol zerowe ustawiaja obiekt dokladnie pomiedzy czterema wiatrakami
-	wiatrak(0, 0, 0, 15);
-	wiatrak(40, 0, 40, 15);
-	wiatrak(0, 0, 40, 15);
-	wiatrak(40, 0, 0, 15);
-	pierscien(20, -4, 20, 15, 2.5); //pierwsze 3 to wspolrzedne, 2 od prawej to rozmiary
-	pierscien(20, -30.3, 20, 15, 2.6);
-	krzyz(20, -29, 20, 1.25);
-	lacznikSmigloBaza(0, 0, 0);  //lacznik wirnika o podanych wspolrzednych itd.
-	lacznikSmigloBaza(40, 0, 0);
-	lacznikSmigloBaza(40, 0, 40);
-	lacznikSmigloBaza(0, 0, 40);
+	//kamera(-20, 0, -27);	// wspol zerowe ustawiaja obiekt dokladnie pomiedzy czterema wiatrakami  -4 bylo
+	//wiatrak(0, 0, 0, 15);
+	//wiatrak(40, 0, 40, 15);
+	//wiatrak(0, 0, 40, 15);
+	//wiatrak(40, 0, 0, 15);
+	//pierscien(20, -4, 20, 15, 2.5); //pierwsze 3 to wspolrzedne, 2 od prawej to rozmiary
+	//krzyz(20, -2.75, 20, 1.25);
+	//walecZamkniety(20, -4, 20, 1.25, -5, 100, 100, 100);	//uchwyt do kamery
+	//lacznikSmigloBaza(0, 0, 0);  //lacznik wirnika o podanych wspolrzednych itd.
+	//lacznikSmigloBaza(40, 0, 0);
+	//lacznikSmigloBaza(40, 0, 40);
+	//lacznikSmigloBaza(0, 0, 40);
+
+	romb(0, 0, 0, 5, 5, 5,1,0,0);
 
 
 
