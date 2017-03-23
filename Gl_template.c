@@ -569,7 +569,7 @@ void kamera(float x, float y, float z)
 
 	/*---------------stopki na bazie walca---------------*/
 
-	//pionowy pret pod obiektem								// <--- tu pozniej detali wiecej dorobie dorobie ----------------------------------
+	//pionowy pret pod obiektem								// <--- tu pozniej detali wiecej dorobie ----------------------------------
 	glColor3f(0.0f, 0.0f, 0.0f);
 	glBegin(GL_TRIANGLE_STRIP);
 	glVertex3f(x + 40.0f, y + -15.0f, z + 40.0f);
@@ -863,18 +863,6 @@ void RenderScene(void)
 	// Flush drawing commands
 	glFlush();
 }
-
-///JAKIE MAMY FIGURY<------------------------jak cos wiecej znajdziesz dopisz :)
-///
-///trapez
-///trojkat
-///kolo
-///pierscien/okrag
-///walec
-///stozek
-///kwadrat
-///<-----------------------------
-
 
 // Select the pixel format for a given device context
 void SetDCPixelFormat(HDC hDC)
