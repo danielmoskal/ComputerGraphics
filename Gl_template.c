@@ -417,6 +417,29 @@ void romb(GLfloat x, GLfloat y, GLfloat z, GLfloat dlugosc, GLfloat szerokosc, G
 	}
 }
 
+void ostroslup(GLfloat x, GLfloat y, GLfloat z, GLfloat szerokosc, GLfloat wysokosc, float red, float green, float blue)
+{
+	glPolygonMode(GL_FRONT_AND_BACK, GL_FILL);
+	{
+		glColor3f(red, green, blue);
+		glBegin(GL_TRIANGLE_STRIP);
+		glVertex3f(x, y, z);
+		glVertex3f(x + szerokosc, y, z);
+		glVertex3f(x, y, z + szerokosc);
+		glVertex3f(x + szerokosc, y, z + szerokosc);
+		glEnd();
+
+		glBegin(GL_TRIANGLE_STRIP);
+		glVertex3f(x, y, z);
+		glVertex3f(x + szerokosc/2.0, y + wysokosc, z + szerokosc/2.0);
+		glVertex3f(x + szerokosc, y, z);
+		glVertex3f(x + szerokosc, y, z + szerokosc);
+		glVertex3f(x + szerokosc / 2.0, y + wysokosc, z + szerokosc / 2.0);
+		glVertex3f(x, y, z + szerokosc);
+		glVertex3f(x, y, z);
+		glEnd();	
+	}
+}
 
 
 /// --------> koniec figur podstawowych -------- ///
@@ -830,13 +853,12 @@ void RenderScene(void)
 	lacznikSmigloBaza(40, 0, 0);
 	lacznikSmigloBaza(40, 0, 40);
 	lacznikSmigloBaza(0, 0, 40);
-
-	
-
-	romb(20, -8, 18, 2.5, -5, -5, 0.0, 0.3, 0.3);
+	romb(20, -8, 18, 2.5, -5, -5, 0.0, 0.3, 0.3);	//detale w kamerce
 	romb(20, -8, 18, 2.5, 5, -5, 0.0, 0.3, 0.3);
-
-
+	ostroslup(-2, 0, -2, 3, -4, 0.5, 0.0, 0.0);		//detale pod wiatrakami
+	ostroslup(39, 0, 39, 3, -4, 0.5, 0.0, 0.0);
+	ostroslup(-2, 0, 39, 3, -4, 0.5, 0.0, 0.0);
+	ostroslup(39, 0, -2, 3, -4, 0.5, 0.0, 0.0);
 	
 
 	//tak na probe

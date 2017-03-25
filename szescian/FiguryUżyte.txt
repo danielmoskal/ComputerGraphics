@@ -10,6 +10,7 @@ JAKIE MAMY FIGURY<------------------------jak cos wiecej znajdziesz dopisz :)
 6.stozek
 7.kwadrat
 8.romb
+9.ostroslup
 
 
 <-----------------------------
