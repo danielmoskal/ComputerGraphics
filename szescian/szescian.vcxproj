@@ -164,6 +164,9 @@
   <ItemGroup>
     <ResourceCompile Include="szescian.rc" />
   </ItemGroup>
+  <ItemGroup>
+    <Text Include="FiguryUżyte.txt" />
+  </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
   </ImportGroup>

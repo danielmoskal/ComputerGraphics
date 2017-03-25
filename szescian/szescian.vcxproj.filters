@@ -38,4 +38,7 @@
       <Filter>Resource Files</Filter>
     </ResourceCompile>
   </ItemGroup>
+  <ItemGroup>
+    <Text Include="FiguryUżyte.txt" />
+  </ItemGroup>
 </Project>
