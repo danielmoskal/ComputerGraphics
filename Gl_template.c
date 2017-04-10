@@ -461,15 +461,15 @@ void drzewo(GLfloat x, GLfloat y, GLfloat z)
 	glBegin(GL_TRIANGLE_FAN);
 	glColor3ub(0, 255, 100);
 	glVertex3f(x, y+7, z);
-	for (float k = 0-GL_PI/6; k <= GL_PI+GL_PI/6+GL_PI/24; k += GL_PI / 24)
+	for (float k = 0-GL_PI/9; k <= GL_PI+GL_PI/6+GL_PI/24; k += GL_PI / 24)
 	{
-		glVertex3f(x+cos(k) * 5,y+ 7+sin(k)*5, z);
+		glVertex3f(x+cos(k) * 10,y+ 12+sin(k)*10, z);
 	}
 	glEnd();
 
-	glColor3ub(240, 0, 100);
+	glColor3ub(60, 25, 0);
 	glBegin(GL_TRIANGLE_STRIP);
-	for (int i = 0; i < 8; i++)
+	for (int i = 0; i < 16; i++)
 	{
 		glVertex3f(x+-1.5, y+i, z+0);
 		glVertex3f(x+1.5, y+i, z+0);
@@ -479,15 +479,15 @@ void drzewo(GLfloat x, GLfloat y, GLfloat z)
 	glBegin(GL_TRIANGLE_FAN);
 	glColor3ub(0, 255, 100);
 	glVertex3f(z, y + 7, x);
-	for (float k = 0 - GL_PI / 6; k <= GL_PI + GL_PI / 6 + GL_PI / 24; k += GL_PI / 24)
+	for (float k = 0 - GL_PI / 9; k <= GL_PI + GL_PI / 6 + GL_PI / 24; k += GL_PI / 24)
 	{
-		glVertex3f(z, y + 7 + sin(k) * 5, x + cos(k) * 5);
+		glVertex3f(z, y + 12 + sin(k) * 10, x + cos(k) * 10);
 	}
 	glEnd();
 
-	glColor3ub(240, 0, 100);
+	glColor3ub(60, 25, 0);
 	glBegin(GL_TRIANGLE_STRIP);
-	for (int i = 0; i < 8; i++)
+	for (int i = 0; i < 16; i++)
 	{
 		glVertex3f(z, y + i, x + -1.5);
 		glVertex3f(z, y + i, x + 1.5);
@@ -893,7 +893,10 @@ void RenderScene(void)
 
 
 	uklad();
-	drzewo(20, -20, 45);
+	drzewo(40, -20, 55);
+	drzewo(-54, -20, 20);
+	drzewo(120, -20, -45);
+	drzewo(-140, -20, -78);
 	podstawa();
 	kamera(-20, 0, -27);	// obiekt dokladnie pomiedzy czterema wiatrakami
 	wiatrak(0, 0, 0, 15);
