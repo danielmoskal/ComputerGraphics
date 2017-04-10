@@ -444,6 +444,58 @@ void ostroslup(GLfloat x, GLfloat y, GLfloat z, GLfloat szerokosc, GLfloat wysok
 
 /// --------> koniec figur podstawowych -------- ///
 
+void podstawa()
+{
+	glBegin(GL_TRIANGLE_FAN);
+	glColor3ub(50, 190, 20);
+	glVertex3f(0, -20, 0);
+	for (float k = 0; k < 2 * GL_PI + GL_PI / 24; k += GL_PI / 24)
+	{
+		glVertex3f(sin(k) * 200, -20, cos(k) * 200);
+	}
+	glEnd();
+}
+
+void drzewo(GLfloat x, GLfloat y, GLfloat z)
+{
+	glBegin(GL_TRIANGLE_FAN);
+	glColor3ub(0, 255, 100);
+	glVertex3f(x, y+7, z);
+	for (float k = 0-GL_PI/6; k <= GL_PI+GL_PI/6+GL_PI/24; k += GL_PI / 24)
+	{
+		glVertex3f(x+cos(k) * 5,y+ 7+sin(k)*5, z);
+	}
+	glEnd();
+
+	glColor3ub(240, 0, 100);
+	glBegin(GL_TRIANGLE_STRIP);
+	for (int i = 0; i < 8; i++)
+	{
+		glVertex3f(x+-1.5, y+i, z+0);
+		glVertex3f(x+1.5, y+i, z+0);
+	}
+	glEnd();
+
+	glBegin(GL_TRIANGLE_FAN);
+	glColor3ub(0, 255, 100);
+	glVertex3f(z, y + 7, x);
+	for (float k = 0 - GL_PI / 6; k <= GL_PI + GL_PI / 6 + GL_PI / 24; k += GL_PI / 24)
+	{
+		glVertex3f(z, y + 7 + sin(k) * 5, x + cos(k) * 5);
+	}
+	glEnd();
+
+	glColor3ub(240, 0, 100);
+	glBegin(GL_TRIANGLE_STRIP);
+	for (int i = 0; i < 8; i++)
+	{
+		glVertex3f(z, y + i, x + -1.5);
+		glVertex3f(z, y + i, x + 1.5);
+	}
+	glEnd();
+
+}
+
 
 
 //rysuje pojedynczy wirnik z silnikiem
@@ -841,6 +893,8 @@ void RenderScene(void)
 
 
 	uklad();
+	drzewo(20, -20, 45);
+	podstawa();
 	kamera(-20, 0, -27);	// obiekt dokladnie pomiedzy czterema wiatrakami
 	wiatrak(0, 0, 0, 15);
 	wiatrak(40, 0, 40, 15);
